@@ -280,7 +280,7 @@
   background: #b1271b;
 }
 
-}
+
     </style>
 </head>
 <body>
@@ -293,7 +293,7 @@
         </nav>
 
         <div class="profile-menu">
-  <img src="IMAGES/profile-icon.png" id="profile-icon" alt="Profile">
+  <div id="profile-icon" style="width:40px;height:40px;border-radius:50%;background:#00aacc;color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:bold;font-size:16px;">P</div>
 
   <div class="dropdown" id="dropdown-menu">
     <p id="user-email"></p>
@@ -361,46 +361,75 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  if (isLoggedIn !== "true" || !currentUser) {
-    window.location.href = "SignLog.html";
-    return;
-  }
-
-  // Show user email in dropdown
-  document.getElementById("user-email").textContent = currentUser.email;
-
-  // Define references for the dropdown toggle
-  const profileIcon = document.getElementById("profile-icon");
-  const dropdown    = document.getElementById("dropdown-menu");
-
-  // Toggle dropdown open/close when profile icon is clicked
-  profileIcon.addEventListener("click", (e) => {
-    e.stopPropagation();
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-  });
-
-  // Close dropdown when clicking anywhere else on the page
-  window.addEventListener("click", (e) => {
-    if (!profileIcon.contains(e.target) && !dropdown.contains(e.target)) {
-      dropdown.style.display = "none";
+  // Ask the SERVER if this session is still logged in
+  fetch("api/auth.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action: "check" })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (!data.logged_in) {
+      // Session gone — clear localStorage and redirect
+      localStorage.removeItem("currentUser");
+      localStorage.removeItem("userEmail");
+      localStorage.setItem("isLoggedIn", "false");
+      window.location.href = "SignLog.html";
+      return;
     }
+
+    // Session is alive — sync localStorage
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("userEmail", data.email);
+    localStorage.setItem("currentUser", JSON.stringify(data));
+
+    // Show email in dropdown
+    document.getElementById("user-email").textContent = data.email;
+
+    const profileIcon = document.getElementById("profile-icon");
+    const dropdown    = document.getElementById("dropdown-menu");
+
+    profileIcon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    });
+
+    window.addEventListener("click", (e) => {
+      if (!profileIcon.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Sign out — destroy server session first, then clear localStorage
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      fetch("api/auth.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "logout" })
+      }).finally(() => {
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("userEmail");
+        localStorage.setItem("isLoggedIn", "false");
+        window.location.href = "SignLog.html";
+      });
+    });
+
+    displayUserBookings();
+  })
+  .catch(() => {
+    // XAMPP not reachable — fallback to localStorage
+    const isLoggedIn  = localStorage.getItem("isLoggedIn");
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (isLoggedIn !== "true" || !currentUser) {
+      window.location.href = "SignLog.html";
+      return;
+    }
+    document.getElementById("user-email").textContent = currentUser.email;
+    displayUserBookings();
   });
 
-  // Sign out
-  document.getElementById("logout-btn").addEventListener("click", () => {
-    localStorage.removeItem("currentUser");
-    localStorage.removeItem("userEmail");
-    localStorage.setItem("isLoggedIn", "false");
-    window.location.href = "SignLog.html";
-  });
-
-  displayUserBookings();
 });
-
-  
 </script>
 </body>
 </html>

@@ -78,9 +78,14 @@ elseif ($action === 'login') {
     $user = $result->fetch_assoc();
 
     if (password_verify($password, $user['password'])) {
+        $_SESSION['logged_in']  = true;
+        $_SESSION['user_id']    = $user['id'];
+        $_SESSION['user_email'] = $user['email'];
+
         echo json_encode([
             'success'    => true,
             'message'    => 'Login successful!',
+            'id'         => $user['id'],
             'email'      => $user['email'],
             'first_name' => $user['first_name'],
             'last_name'  => $user['last_name']
@@ -89,6 +94,31 @@ elseif ($action === 'login') {
         echo json_encode(['success' => false, 'message' => 'Incorrect password. Please try again.']);
     }
     $stmt->close();
+}
+
+// ============================================
+// CHECK SESSION
+// ============================================
+elseif ($action === 'check') {
+    if (!empty($_SESSION['logged_in']) && !empty($_SESSION['user_email'])) {
+        echo json_encode([
+            'success'   => true,
+            'logged_in' => true,
+            'id'        => $_SESSION['user_id'],
+            'email'     => $_SESSION['user_email']
+        ]);
+    } else {
+        echo json_encode(['success' => true, 'logged_in' => false]);
+    }
+}
+
+// ============================================
+// LOGOUT
+// ============================================
+elseif ($action === 'logout') {
+    $_SESSION = [];
+    session_destroy();
+    echo json_encode(['success' => true]);
 }
 
 // ============================================
