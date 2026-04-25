@@ -118,10 +118,10 @@ function showRegister() {
   document.getElementById("registerBox").style.display = "block";
 }
 
-// REGISTER
+// REGISTER — saves account to MySQL via api/auth.php
 function register() {
-  const username = document.getElementById("regUsername").value;
-  const email = document.getElementById("regEmail").value;
+  const username = document.getElementById("regUsername").value.trim();
+  const email    = document.getElementById("regEmail").value.trim();
   const password = document.getElementById("regPassword").value;
 
   if (!username || !email || !password) {
@@ -129,33 +129,42 @@ function register() {
     return;
   }
 
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  if (users.find(u => u.email === email)) {
-    alert("Email already exists");
-    return;
-  }
-
-  users.push({ username, email, password });
-  localStorage.setItem("users", JSON.stringify(users));
-
-  alert("Account created successfully!");
-  showLogin();
+  fetch("api/auth.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      action:   "register",
+      email:    email,
+      password: password
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("REGISTER:", data);
+    if (data.success) {
+      alert("Account created successfully! Please log in.");
+      showLogin();
+    } else {
+      alert(data.message);
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Server error. Make sure XAMPP (Apache + MySQL) is running.");
+  });
 }
 
-// LOGIN
+// LOGIN — verifies credentials via api/auth.php
 function login() {
-  const email = document.getElementById("loginEmail").value;
+  const email    = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
 
-  fetch("auth.php", {
+  fetch("api/auth.php", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      action: "login",
-      email: email,
+      action:   "login",
+      email:    email,
       password: password
     })
   })
@@ -164,22 +173,24 @@ function login() {
     console.log("LOGIN:", data);
 
     if (data.success) {
-      // ✅ STORE WHOLE USER
-      localStorage.setItem("currentUser", JSON.stringify(data));
-      localStorage.setItem("isLoggedIn", "true");
+      // Store user info for use across all pages
+      localStorage.setItem("currentUser",      JSON.stringify(data));
+      localStorage.setItem("isLoggedIn",       "true");
+      localStorage.setItem("userEmail",        data.email);
 
-      window.location.href = "account.html";
+      // Redirect back to wherever the user came from (e.g. booking flow)
+      const redirect = localStorage.getItem("redirectAfterLogin") || "account.html";
+      localStorage.removeItem("redirectAfterLogin");
+      window.location.href = redirect;
     } else {
       alert(data.message);
     }
   })
   .catch(err => {
     console.error(err);
-    alert("Server error");
+    alert("Server error. Make sure XAMPP (Apache + MySQL) is running.");
   });
 }
-</script>
-
 </script>
 
 </body>

@@ -389,7 +389,7 @@ function initBookingStep3() {
   saveBookingToHistory({ ...bookingPayload, bookingId, referenceNo });
 
   // ── Then attempt to save to DB (best-effort) ──
-  fetch('bookings.php', {
+  fetch('api/bookings.php', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
     body:    JSON.stringify(bookingPayload)
