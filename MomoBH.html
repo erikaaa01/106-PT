@@ -1,0 +1,814 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TropiStay</title>
+  <link rel="stylesheet"
+    href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
+  <link href= "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,
+  500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">             
+
+  <link rel="stylesheet" href="style.css">
+  <script src="bookingScript.js" type="text/javascript"></script>
+
+
+ 
+
+
+</head>
+<body>
+
+
+  <header>
+    <img src="IMAGES/LOGO2.2 4 (1).png" alt="TropiStay logo" id="logo">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="hl.html">Hotels</a>
+      <a href="SignLog.html">Account</a>
+    </nav>
+    <div class="search-container">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search in site" id="searchInput">
+      <div class="suggestions" id="suggestions"></div>
+    </div>
+  </header>
+      
+      <!-- Search Bar -->
+  <div class="search-bar">
+    <div class="bar2">
+      <!-- Location Input with Icon -->
+      <div class="input-group">
+        <i class='bx bx-bed'></i>
+        <input type="text" placeholder="Momo Beach House Resort" />
+      </div>
+  
+      <!-- Date Picker with Icon -->
+      <div class="input-group">
+        <i class='bx bx-calendar'></i>
+        <input type="date" id="check-in" />
+        <span>—</span>
+        <input type="date" id="check-out" />
+      </div>
+  
+      <!-- Guests Selector -->
+      <div class="custom-select" id="guest-selector">
+        <div class="select-box" onclick="toggleDropdown()">
+          <i class='bx bx-user'></i>
+          <span id="guest-summary">2 adults · 0 children · 1 room</span>
+          <span class="arrow">&#9662;</span>
+        </div>
+        <div class="dropdown" id="guest-dropdown">
+          <div class="option-row">
+            <label>Rooms</label>
+            <div class="counter">
+              <button onclick="updateCount('room', -1)">−</button>
+              <span id="room-count">1</span>
+              <button onclick="updateCount('room', 1)">+</button>
+            </div>
+          </div>
+          <div class="option-row">
+            <label>Adults</label>
+            <div class="counter">
+              <button onclick="updateCount('adult', -1)">−</button>
+              <span id="adult-count">2</span>
+              <button onclick="updateCount('adult', 1)">+</button>
+            </div>
+          </div>
+          <div class="option-row">
+            <label>Children</label>
+            <div class="counter">
+              <button onclick="updateCount('child', -1)">−</button>
+              <span id="child-count">0</span>
+              <button onclick="updateCount('child', 1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Search Button -->
+      <button onclick="searchHotels()">Search</button>
+    </div>
+  </div>
+
+
+  <script>
+
+    // Get references to elements
+  const dropdown = document.getElementById('guest-dropdown');
+  const summary = document.getElementById('guest-summary');
+
+  // Initial values
+  let guestCounts = {
+room: 1,
+adult: 2,
+child: 0
+};
+
+  // Toggle dropdown visibility
+  function toggleDropdown() {
+  dropdown.classList.toggle('show');
+  }
+
+  // Update count based on type and direction (+1 or -1)
+  function updateCount(type, change) {
+  const minValues = { room: 1, adult: 1, child: 0 };
+  guestCounts[type] = Math.max(minValues[type], guestCounts[type] + change);
+
+  // Update the displayed count
+  document.getElementById(`${type}-count`).textContent = guestCounts[type];
+
+  // Update the summary
+  updateSummary();
+  }
+
+  // Update the guest summary text
+  function updateSummary() {
+  const { room, adult, child } = guestCounts;
+  summary.textContent = `${adult} adult${adult > 1 ? 's' : ''} · ${child} child${child !== 1 ? 'ren' : ''} · ${room} room${room > 1 ? 's' : ''}`;
+  }
+
+  // Close the dropdown if clicking outside
+  document.addEventListener('click', function (e) {
+  const selector = document.getElementById('guest-selector');
+  if (!selector.contains(e.target)) {
+  dropdown.classList.remove('show');
+  }
+  });
+
+  </script>
+
+  <!-- End of Search Bar Code -->
+  
+     
+      <div class="main">
+        <div class="gallery">
+            <div class="big-image">
+              <img src="hotel-images/momo1.png" alt="Big Image">
+            </div>
+            <div class="small-images">
+              <img src="hotel-images/momo2.png"  >
+              <img src="hotel-images/momo3.png"  >
+              <img src="hotel-images/momo4.png"  >
+              <img src="hotel-images/momo5.png"  >
+              <img src="hotel-images/momo6.png"  >
+              <img src="hotel-images/momo8.png"  >
+            </div>
+          </div>
+
+         
+          
+          
+    <div class="form">
+          <div class="resort-title">
+            <div class="title-rating">
+              <h2>Momo Beach House</h2>
+              <img src="hotel-images/rating2.png" alt="rating">
+            </div>
+            <p>Momo Beach, Panglao Island, Bohol, Philippines, 6340</p>
+            <hr>
+        
+        <div class="description">
+          <p style="text-align: justify;">The car parking and the Wi-Fi are always free, so you can stay in touch and come and go as you please. Conveniently situated in the Panglao Island part of Bohol,
+            this property puts you close to attractions and interesting dining options.  Don't leave before paying a visit to the famous Chocolate Hills Natural Monument. 
+          Rated with 3.5 stars, this high-quality property provides guests with access to massage, restaurant and outdoor pool on-site.
+             </p>
+        </div>
+      </div>
+
+      <div class="ratings">
+        <div class="rating-score" id="score">8.0 Great
+          <span id="reviews" style="font-size: 12px;">1,275 Reviews</span>
+          <hr>
+        </div>
+        <div class="subtitle">Guests who stayed here loved</div>
+        <div class="quote" id="quote">“Great place and love the atmosphere, the staffs were very welcoming :)”</div>
+        <div class="navigation">
+          <div class="nav-arrow" onclick="prevReview()">&#60;</div>
+          <div class="user">
+            <div class="user-icon" id="initial">E</div>
+            <div class="user-info">
+              <div id="name">Evelyn</div>
+              <small id="location">United States</small>
+            </div>
+          </div>
+          <div class="nav-arrow" onclick="nextReview()">&#62;</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const reviews = [
+        {
+          score: "8.0 Excellent",
+          reviewsCount: "1,275 Reviews",
+          quote: "“Great place and love the atmosphere, the staffs were very welcoming :)”",
+          name: "Evelyn",
+          location: "Philippines",
+          initial: "E"
+        },
+        {
+          score: "8.0 Excellent",
+          reviewsCount: "1,275 Reviews",
+          quote: "“Loved the beach, it was a cozy stay. Hope to return soon”",
+          name: "Glen",
+          location: "Canada",
+          initial: "G"
+        }
+      ];
+  
+      let currentIndex = 0;
+  
+      function showReview(index) {
+        const review = reviews[index];
+        document.getElementById("score").firstChild.textContent = review.score;
+        document.getElementById("reviews").textContent = review.reviewsCount;
+        document.getElementById("quote").textContent = review.quote;
+        document.getElementById("name").textContent = review.name;
+        document.getElementById("location").textContent = review.location;
+        document.getElementById("initial").textContent = review.initial;
+      }
+  
+      function nextReview() {
+        currentIndex = (currentIndex + 1) % reviews.length;
+        showReview(currentIndex);
+      }
+  
+      function prevReview() {
+        currentIndex = (currentIndex - 1 + reviews.length) % reviews.length;
+        showReview(currentIndex);
+      }
+    </script>
+    
+    <div class="box-form">
+      <div class="highlights">
+        <h3>Highlights</h3>
+        <div class="highlights-form">
+          <div class="highlight-item">
+            <img src="hotel-images/highlights4.1.png" alt="">
+            <p>Hygiene Plus</p>
+          </div>
+          <div class="highlight-item">
+            <img src="hotel-images/highlights4.2.png" alt="">
+            <p>Front Desk 24 Hours</p>
+          </div>
+          <div class="highlight-item">
+            <img src="hotel-images/highlights4.3.png" alt="">
+            <p>Airport Transfer</p>
+          </div>
+          <div class="highlight-item">
+            <img src="hotel-images/highlights4.png" alt="">
+            <p>Great Swimming Pool</p>
+          </div>
+          <div class="highlight-item">
+            <img src="hotel-images/highlights5.png" alt="">
+            <p>Great for Outdoor Activities</p>
+          </div>
+        </div>
+      </div>
+      
+
+      <div class="form2">
+        <div id="map" style="height: 150px; width: 100%; margin-bottom: 10px;"></div>
+      
+        <!-- Leaflet JS and Map Script -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            // Coordinates for Momo Beach House, Panglao, Bohol
+            const resortLocation = [9.615059, 123.781305];
+      
+            const map = L.map('map').setView(resortLocation, 17);
+      
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+      
+            const marker = L.marker(resortLocation).addTo(map);
+            marker.bindPopup("Momo Beach House").openPopup();
+          });
+        </script>
+      </div>
+  </div>
+      
+    
+  <div class="Offers">
+    <h3>Staycation Offers</h3>
+    <div class="highlights-form">
+      <div class="highlight-item">
+        <img src="hotel-images/highlights3.png" alt="">
+       
+        <div class="highlight-text">
+            <h5>Food & Drinks</h5>
+          <p>Room Service (24 hours)</p>
+          <p>Coffee Shop</p>
+          
+        </div>
+      </div>
+      <div class="highlight-item">
+        <img src="hotel-images/offers1.png" alt="">
+        <div class="highlight-text">
+          <h5>Wellness</h5>
+          <p>Fitness Center</p>
+          <p>Spa</p>
+        
+        </div>
+      </div>
+      <div class="highlight-item">
+        <img src="hotel-images/offers2.png" alt="">
+        <div class="highlight-text">
+          <h5>Activities</h5>
+          <p>Pool</p>
+          <p>Beach</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Available Rooms -->
+  
+    <div class="container">
+    <h2>Available Rooms</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Room Type</th>
+          <th>Your Choices</th>
+          <th>Number of Guests</th>
+          <th>Prices</th>
+          <th>Select Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+       
+        <!-- Premier Room -->
+        <tr>
+          <td class="room-images">
+            <div class="image-wrapper">
+                <div class="room-title">Standard Room</div>
+                <img src="hotel-images/mm3.1.avif" alt="Main Room" style="height: 95px;">
+                <div class="thumbs">
+                  <img src="hotel-images/mm3.2.avif" alt="Thumb 1">
+                  <img src="hotel-images/mm3.3.avif" alt="Thumb 2">
+                </div>
+                <div class="see-more" data-modal-id="roomModal2" onclick="openModal(this)">
+                  <i class="ri-add-circle-line"></i> See More Photos and Details
+                </div>
+              </div>
+          </td>
+          <td>
+            <br>
+          <br>
+            ✓ Breakfast Included<br>
+            ✓ Non-refundable (Low Price)<br>
+            ✓ Book and Pay Now<br>
+            ✓ Parking<br>
+            ✓ Free WiFi
+       
+          </td>
+          <td class="guests">👤👤</td>
+          <td class="price">₱ 5,999</td>
+          <td class="action">
+            <select id="premier-select">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select><br>
+            <button class="reserve-btn" onclick="reserveRoom('Premier Room', 'premier-select')">Reserve</button>
+          </td>
+        </tr>
+
+        <div id="roomModal2" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="closeModal('roomModal2')">&times;</span>
+
+        
+            <div class="modal-body">
+              <!-- Left side: Image & Thumbnails -->
+              <div class="modal-left">
+                <img src="hotel-images/mm3.1.avif" class="main-img" alt="Premier Room">
+                <div class="thumbs2">
+                  <img src="hotel-images/mm3.2.avif" alt="Thumb 1">
+                  <img src="hotel-images/mm3.3.avif" alt="Thumb 2">
+                  <img src="hotel-images/mm3.5.avif" alt="Thumb 3">
+                  <img src="hotel-images/mm3.6.avif" alt="Thumb 4">
+                  <img src="hotel-images/mm3.7.avif" alt="Thumb 5">
+                  <img src="hotel-images/mm3.1.avif" alt="Thumb 6">
+                  
+                </div>
+              </div>
+        
+              <!-- Right side: Details -->
+              <div class="modal-right">
+                <h2>Standard Room</h2>
+                <div class="icons">
+                  <span>📏 44m²</span>
+                  <span>🏞️ Balcony</span>
+                  <span>🛁 Private Bathroom</span>
+                  <span>📺 TV</span>
+                </div>
+                <p><strong>Comfy beds</strong>, 9.1 – Based on 250 reviews</p>
+                <p>This room is fitted with air conditioning, a wardrobe, and a desk. The room has a flat-screen TV with cable channels, a personal safe, and a seating area. The private bathroom is fitted with a bathtub and has free bathroom amenities.</p>
+        
+                <h4>In your private bathroom:</h4>
+                <ul class="checklist">
+                  <li>✔️ Free Toiletries</li>
+                  <li>✔️ Shower</li>
+                  <li>✔️ Toilet</li>
+                  <li>✔️ Toilet Paper</li>
+                </ul>
+        
+                <h4>Facilities:</h4>
+                <ul class="checklist">
+                  <li>🛏️ Linens</li>
+                  <li>📶 WiFi</li>
+                  <li>🍾 Minibar</li>
+                  <li>🪟 View</li>
+                  <li>👚 Clothes rack</li>
+                  <li>📞 Telephone   <span class="room-price">₱ 5,999/night</span></li></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Junior Suite -->
+        <tr>
+          <td class="room-images">
+            <div class="image-wrapper">
+                <div class="room-title">Deluxe Room</div>
+                <img src="hotel-images/mm2.1.avif" alt="Main Room" style="height: 95px;">
+                <div class="thumbs">
+                  <img src="hotel-images/mm2.2.avif" alt="Thumb 1">
+                  <img src="hotel-images/mm2.3.avif" alt="Thumb 2">
+                </div>
+                <div class="see-more" data-modal-id="roomModal3" onclick="openModal(this)">
+                  <i class="ri-add-circle-line"></i> See More Photos and Details
+                </div>
+              </div>
+          </td>
+          <td>
+            <br>
+          <br>
+            ✓ Breakfast Included<br>
+            ✓ Non-refundable (Low Price)<br>
+            ✓ Book and Pay Now<br>
+            ✓ Parking<br>
+            ✓ Free WiFi
+          </td>
+          <td class="guests">👤👤</td>
+          <td class="price">₱ 10,500</td>
+          <td class="action">
+            <select id="junior-select">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select><br>
+            <button class="reserve-btn" onclick="reserveRoom('Junior Suite', 'junior-select')">Reserve</button>
+          </td>
+        </tr>
+
+        <div id="roomModal3" class="modal">
+          <div class="modal-content">
+            <span class="close" onclick="closeModal('roomModal3')">&times;</span>
+
+        
+            <div class="modal-body">
+              <!-- Left side: Image & Thumbnails -->
+              <div class="modal-left">
+                <img src="hotel-images/mm2.1.avif" class="main-img" alt="Deluxe Room">
+                <div class="thumbs2">
+                  <img src="hotel-images/mm2.2.avif" alt="Thumb 1">
+                  <img src="hotel-images/mm2.3.avif" alt="Thumb 2">
+                  <img src="hotel-images/mm2.4.avif" alt="Thumb 3">
+                  <img src="hotel-images/mm2.6.avif" alt="Thumb 4">
+                  <img src="hotel-images/mm2.7.avif" alt="Thumb 5">
+                  <img src="hotel-images/mm2.1.avif" alt="Thumb 6">
+                  
+                </div>
+              </div>
+        
+              <!-- Right side: Details -->
+              <div class="modal-right">
+                <h2>Deluxe Room</h2>
+                <div class="icons">
+                  <span>📏 55m²</span>
+                  <span>🏞️ Balcony</span>
+                  <span>🛁 Private Bathroom</span>
+                  <span>📺 TV</span>
+                </div>
+                <p><strong>Comfy beds</strong>, 9.1 – Based on 300 reviews</p>
+                <p>This suite has air conditioning, a sofa seating and dining area, and a flat-screen cable TV. The suite also has a private balcony with pool view. The private bathroom has shower facilities with free bathroom amenities. </p>
+        
+                <h4>In your private bathroom:</h4>
+                <ul class="checklist">
+                  <li>✔️ Free Toiletries</li>
+                  <li>✔️ Shower</li>
+                  <li>✔️ Toilet</li>
+                  <li>✔️ Toilet Paper</li>
+                </ul>
+        
+                <h4>Facilities:</h4>
+                <ul class="checklist">
+                  <li>🛏️ Linens</li>
+                  <li>📶 WiFi</li>
+                  <li>🍾 Minibar</li>
+                  <li>🪟 View</li>
+                  <li>👚 Clothes rack</li>
+                  <li>📞 Telephone   <span class="room-price">₱ 10,500/night</span></li></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       <!-- family room --> 
+        <tr>
+            <td class="room-images">
+                <div class="image-wrapper">
+                    <div class="room-title">Family Room</div>
+                    <img src="hotel-images/mm1.webp" alt="Main Room"  style="height: 95px;">
+                    <div class="thumbs">
+                      <img src="hotel-images/mm2.jpg" alt="Thumb 1">
+                      <img src="hotel-images/mm3.avif" alt="Thumb 2">
+                      </div>
+                      <div class="see-more" data-modal-id="roomModal4" onclick="openModal(this)">
+                        <i class="ri-add-circle-line"></i> See More Photos and Details
+                      </div>
+            </td>
+            <td>
+                <br>
+          <br>
+              ✓ Breakfast Included<br>
+              ✓ Non-refundable (Low Price)<br>
+              ✓ Book and Pay Now<br>
+              ✓ Parking<br>
+              ✓ Free WiFi
+            </td>
+            <td class="guests">👤👤 👤👤</td>
+            
+            <td class="price">₱ 12,900</td>
+            <td class="action">
+              <select id="family-select">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+              </select><br>
+              <button class="reserve-btn" onclick="reserveRoom('Family Room', 'family-select')">Reserve</button>
+            </td>
+          </tr>
+
+          <div id="roomModal4" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeModal('roomModal4')">&times;</span>
+  
+          
+              <div class="modal-body">
+                <!-- Left side: Image & Thumbnails -->
+                <div class="modal-left">
+                  <img src="hotel-images/mm1.webp" class="main-img" alt="Deluxe Room">
+                  <div class="thumbs2">
+                    <img src="hotel-images/mm2.jpg" alt="Thumb 1">
+                    <img src="hotel-images/mm3.avif" alt="Thumb 2">
+                    <img src="hotel-images/mm4.webp" alt="Thumb 3">
+                    <img src="hotel-images/mm5.avif" alt="Thumb 4">
+                    <img src="hotel-images/mm6.webp" alt="Thumb 5">
+                    <img src="hotel-images/mm7.webp" alt="Thumb 6">
+                    
+                  </div>
+                </div>
+          
+                <!-- Right side: Details -->
+                <div class="modal-right">
+                  <h2>Family</h2>
+                  <div class="icons">
+                    <span>📏 55m²</span>
+                    <span>🏞️ Balcony</span>
+                    <span>🛁 Private Bathroom</span>
+                    <span>📺 TV</span>
+                  </div>
+                  <p><strong>Comfy beds</strong>, 9.1 – Based on 274 reviews</p>
+                  <p>This room comes with 2 bedrooms and a shared bathroom with shower facilities and bathroom amenities. The rooms are equipped with a desk, a flat-screen TV, and a personal safe.
+                  <h4>In your private bathroom:</h4>
+                  <ul class="checklist">
+                    <li>✔️ Free Toiletries</li>
+                    <li>✔️ Shower</li>
+                    <li>✔️ Toilet</li>
+                    <li>✔️ Toilet Paper</li>
+                  </ul>
+          
+                  <h4>Facilities:</h4>
+                  <ul class="checklist">
+                    <li>🛏️ Linens</li>
+                    <li>📶 WiFi</li>
+                    <li>🍾 Minibar</li>
+                    <li>🪟 View</li>
+                    <li>👚 Clothes rack</li>
+                    <li>📞 Telephone   <span class="room-price">₱ 12,900/night</span></li></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+
+    //modal js
+    // const reservations = JSON.parse(localStorage.getItem("reservations")) || {};
+    // for (let room in reservations) {
+    // console.log(`${room}: ${reservations[room]} reserved`);
+    // // Or insert into HTML like:
+    // const div = document.createElement("div");
+    // div.textContent = `${room}: ${reservations[room]} room(s) reserved`;
+    // document.body.appendChild(div);
+    // }
+    
+  
+      function openModal(trigger) {
+      const modalId = trigger.getAttribute("data-modal-id");
+      const modal = document.getElementById(modalId);
+      if (modal) modal.style.display = "flex";
+      }
+  
+    function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = "none";
+    }
+  
+  // Optional: Close modal when clicking outside
+  window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+      event.target.style.display = "none";
+    }
+  }
+  // selecting photo javascript
+  document.querySelectorAll('.modal').forEach(modal => {
+      const mainImg = modal.querySelector('.main-img');
+      const thumbnails = modal.querySelectorAll('.thumbs2 img');
+  
+      thumbnails.forEach(thumb => {
+        thumb.addEventListener('click', () => {
+          if (mainImg && thumb.src) {
+            mainImg.src = thumb.src;
+          }
+        });
+      });
+    });
+  //end of modal js
+  
+   
+  // Function to search hotels and scroll to available rooms
+  function searchHotels() {
+    const checkInDate = document.getElementById('check-in').value;
+    const checkOutDate = document.getElementById('check-out').value;
+    
+    if (!checkInDate || !checkOutDate) {
+      alert('Please select both check-in and check-out dates.');
+      return;
+    }
+    
+    // Find the available rooms section
+    const availableRoomsSection = document.querySelector('.container');
+    
+    if (availableRoomsSection) {
+      // Smooth scroll to the available rooms section
+      availableRoomsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    console.log(`Searching for stays from ${checkInDate} to ${checkOutDate}`);
+  }
+  
+  // Set minimum dates for check-in and check-out
+  document.addEventListener('DOMContentLoaded', function() {
+    // Set today as the minimum date for check-in
+    const today = new Date().toISOString().split('T')[0];
+    const checkIn = document.getElementById('check-in');
+    const checkOut = document.getElementById('check-out');
+    
+    if (checkIn && checkOut) {
+      checkIn.min = today;
+      
+      // Update the min date of check-out when check-in changes
+      checkIn.addEventListener('change', function() {
+        checkOut.min = checkIn.value;
+        
+        // If check-out date is before check-in date, reset it
+        if (checkOut.value && checkOut.value < checkIn.value) {
+          checkOut.value = '';
+        }
+      });
+    }
+  });
+  </script>
+   <section class="newsletter">
+    <div class="newsletter-container">
+        <h2>Get Exclusive Deals</h2>
+        <p>Subscribe to our newsletter and receive special offers, travel tips, and exclusive discounts.</p>
+        <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required>
+            <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+    </div>
+</section>
+  
+  <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-about">
+            <div class="footer-logo">
+                <img src="hotel-images/logo3.png" alt="TropiStay Logo">
+                <p>TropiStay makes finding your perfect accommodation in Panglao simple and enjoyable. We partner with the best hotels and resorts to bring you unforgettable experiences.</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.facebook.com/" class="social-link" aria-label="Facebook">
+                    <i class="fab fa-facebook-f social-icon"></i>
+                </a>
+                <a href="https://twitter.com/" class="social-link" aria-label="Twitter">
+                    <i class="fab fa-twitter social-icon"></i>
+                </a>
+                <a href="https://www.instagram.com/" class="social-link" aria-label="Instagram">
+                    <i class="fab fa-instagram social-icon"></i>
+                </a>
+                <a href="https://www.youtube.com/" class="social-link" aria-label="YouTube">
+                    <i class="fab fa-youtube social-icon"></i>
+                </a>
+                <a href="https://www.pinterest.com/" class="social-link" aria-label="Pinterest">
+                    <i class="fab fa-pinterest-p social-icon"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer-links-section">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="hotel_listing.html">Hotels</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="blog.html">Travel Blog</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-links-section">
+            <h3 class="footer-title">Support</h3>
+            <ul class="footer-links">
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms & Conditions</a></li>
+                <li><a href="cancellation.html">Cancellation Policy</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-contact">
+            <h3 class="footer-title">Contact Us</h3>
+            <ul class="footer-links">
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>123 Beach Front, Alona Beach, Panglao, Bohol, Philippines</span>
+                </li>
+                <li>
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+63 (123) 456-7890</span>
+                </li>
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <span>info@tropistay.com</span>
+                </li>
+                <li>
+                    <i class="fas fa-clock"></i>
+                    <span>24/7 Customer Support</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2025 TropiStay. All rights reserved | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for travelers</p>
+        <div class="payment-methods">
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+            <i class="fab fa-cc-amex"></i>
+            <i class="fab fa-cc-paypal"></i>
+            <i class="fab fa-cc-apple-pay"></i>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

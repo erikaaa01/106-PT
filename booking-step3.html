@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="BookingConfirmation.css">
+  <script src="bookingScript.js" type="text/javascript"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TropiStay Booking</title>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="index.html">
+        <img src="hotel-images/logo.png" alt="logo">
+      </a>
+    </div>
+    <div class="steps">
+      <div class="step-indicator step1"><span>1</span><p>Customer Information</p></div>
+      <div class="step-indicator step2"><span>2</span><p>Payment Information</p></div>
+      <div class="step-indicator step3 active"><span>3</span><p>Booking is Confirmed</p></div>
+    </div>
+  </header>
+
+
+  <div id="step3" class="form">
+    <div class="form-section">
+      <div class="confirmation">
+        <div class="header">
+          <img src="hotel-images/logo.png" alt="">
+          <h3>Booking Confirmation</h3>
+        </div>
+
+        <div class="agoda-bar">
+          <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+
+        <table class="section">
+          <tr><td class="label">Booking ID :</td><td id="booking-id">TS-825431</td></tr>
+          <tr><td class="label">Booking Reference No :</td><td id="booking-ref">REF-84261</td></tr>
+          <tr><td class="label">Client :</td><td id="client-name">John Doe</td></tr>
+          <tr><td class="label">Email :</td><td id="client-email">john.doe@example.com</td></tr>
+          <tr><td class="label">Country of Residence :</td><td id="client-country">United States</td></tr>
+          <tr><td class="label">Property :</td><td>Henann Resort Alona Beach</td></tr>
+          <tr>
+            <td class="label">Address :</td>
+            <td>Alona Beach, Panglao Island, Bohol, Philippines, 6340</td>
+          </tr>
+        </table>
+
+        <table class="section">
+          <tr>
+            <td class="label">Number of Rooms :</td><td id="room-quantity">1</td>
+            <td class="label">Room Type :</td><td id="room-type">Deluxe Room</td>
+          </tr>
+         
+        </table>
+
+        <table class="section">
+          <tr><td class="label">Check-in :</td><td id="check-in-date">Sun, May 1</td></tr>
+          <tr><td class="label">Check-out :</td><td id="check-out-date">Sat, May 10</td></tr>
+          <tr><td class="label">Length of Stay :</td><td id="nights-count">9 nights</td></tr>
+          <tr><td class="label">Total Price :</td><td id="room-price">₱ 10,065</td></tr>
+        </table>
+
+        <div class="footer1">
+          <span class="note">Please note:</span> Please present a valid ID and the credit card used for booking upon check-in.<br>
+          <strong>Cancellation Policy:</strong> This booking is non-refundable. Failure to arrive at your hotel or property will be treated as a No-Show and no refund will be given (Property policy).<br><br>
+          <strong>Benefits Included:</strong> Breakfast, Free WiFi, Free Parking
+        </div>
+
+      
+      </div>
+    </div>
+  </div>
+
+  
+
+  <style>
+    .confirmation {
+      width: 90%;
+      max-width: 900px;
+      margin: 20px auto;
+      background: #fff;
+      border: 2px solid #999;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .header img {
+      height: 50px;
+    }
+    .header h3 {
+      margin: 0;
+      font-size: 24px;
+      color: #305579;
+    }
+    .agoda-bar {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .agoda-bar div {
+      background: #305579;
+      width: 100px;
+      height: 12px;
+    }
+    table.section {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    table.section td {
+      vertical-align: top;
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+    .label {
+      font-weight: bold;
+      width: 40%;
+      background: #f8f8f8;
+    }
+    .footer1 {
+      margin-top: 20px;
+      font-size: 13px;
+      padding: 10px;
+      background: #f8f8f8;
+      border: 1px solid #ddd;
+    }
+    .note {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+  </style>
+
+ 
+
+</body>
+</html>

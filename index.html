@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <title>TropiStay - Your Perfect Getaway in Panglao</title>
+    
+    <link rel="stylesheet" href="style-local.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">    
+</head>
+<body>
+    <header>
+        <img src="IMAGES/LOGO2.2 4 (1).png" alt="logo">
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="hl.html">Hotels</a>
+          <a href="SignLog.html">Account</a>
+        </nav>
+        <div class="search-container">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search in site">
+          <div class="suggestions" id="suggestions"></div>
+        </div>
+      </header>
+
+        <div class="slideshow-container">
+            <div class="slide active" style="background-image: url(IMAGES/BEACH.webp);">
+                <div class="slide-content">
+                    <h1>Discover Paradise in Panglao</h1>
+                    <p>Experience luxury beachfront accommodations with breathtaking ocean views</p>
+                    <a href="hl.html" class="slide-btn">Explore Hotels</a>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url(IMAGES/BEACH3.jpg);">
+                <div class="slide-content">
+                    <h1>Unforgettable Island Experience</h1>
+                    <p>Dive into crystal clear waters and explore vibrant coral reefs</p>
+                    <a href="hl.html" class="slide-btn">Discover Activities</a>
+                </div>
+            </div>
+            <div class="slide" style="background-image: url(IMAGES/BBCCC.jpg);">
+                <div class="slide-content">
+                    <h1>Luxury Meets Nature</h1>
+                    <p>Find your perfect balance of comfort and adventure in Panglao</p>
+                    <a href="hl.html" class="slide-btn">View Packages</a>
+                </div>
+            </div>
+            <div class="slide-navigation">
+                <div class="slide-nav-btn active" onclick="currentSlide(1)"></div>
+                <div class="slide-nav-btn" onclick="currentSlide(2)"></div>
+                <div class="slide-nav-btn" onclick="currentSlide(3)"></div>
+            </div>
+        </div>
+    </header>
+
+ 
+    <main class="main-content">
+        <h2>Your Perfect Stay in Panglao Awaits</h2>
+        
+        <section class="featured-hotels">
+            <h3 class="section-title">Featured Hotels</h3>
+            <div class="hotel-cards">
+                <div class="hotel-card">
+                    <img src="IMAGES/Henann.jpg" alt="Luxury Resort" class="hotel-img">
+                    <div class="hotel-info">
+                        <h4 class="hotel-name">Henann Resort Alona Beach</h4>
+                        <div class="hotel-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Alona Beach Rd, Panglao Island, Bohol</span>
+                        </div>
+                        <div class="hotel-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                
+                            </div>
+                            <span class="rating-count">(237 reviews)</span>
+                        </div>
+                        <p class="hotel-price">₱ 10,065<span>per night</span></p>
+                        <a href="hennan.html" class="book-btn" onclick="prepareBooking()">Book Now</a>
+
+
+
+                    </div>
+                </div>
+                
+                <div class="hotel-card">
+                    <img src="IMAGES/BBC.webp" alt="Beachfront Villa" class="hotel-img">
+                    <div class="hotel-info">
+                        <h4 class="hotel-name">Bohol Beach Club</h4>
+                        <div class="hotel-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Bo. Bolod, Island of Panglao, Bohol</span>
+                        </div>
+                        <div class="hotel-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(189 reviews)</span>
+                        </div>
+                        <p class="hotel-price">₱ 16,114 <span>per night</span></p>
+                        <a href="BBC.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="hotel-card">
+                    <img src="IMAGES/Amarela.jpg" alt="Boutique Hotel" class="hotel-img">
+                    <div class="hotel-info">
+                        <h4 class="hotel-name">Amarela Resort</h4>
+                        <div class="hotel-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Purok 2, Barangay Libaong, Panglao Bohol</span>
+                        </div>
+                        <div class="hotel-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-count">(153 reviews)</span>
+                        </div>
+                        <p class="hotel-price">₱ 5,999 <span>per night</span></p>
+                        <a href="amarela.html" class="book-btn">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <section class="features">
+        <div class="features-container">
+            <h2>Why Choose TropiStay</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3 class="feature-title">Best Price Guarantee</h3>
+                    <p class="feature-desc">Find a lower price? We'll match it and give you an additional 10% off.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="feature-title">Free Cancellation</h3>
+                    <p class="feature-desc">Plans change? No problem. Cancel up to 24 hours before check-in.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <a href="CusSup.html">
+                    <h3 class="feature-title">24/7 Support</h3>
+                    <p class="feature-desc">Our dedicated team is always ready to assist you anytime, anywhere.</p>
+                   </a>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-umbrella-beach"></i>
+                    </div>
+                    <h3 class="feature-title">Exclusive Experiences</h3>
+                    <p class="feature-desc">Access unique activities and experiences only available through TropiStay.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="destinations">
+        <h2>Popular Rooms in Panglao</h2>
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <a href="hennan.html#available-rooms" class="destination-card">
+                    <img src="hotel-images/modal1.webp" alt="Alona Beach" class="destination-img">
+                    <div class="destination-info">
+                        <h3 class="destination-name">Henann Resort</h3>
+                        <p>Deluxe room</p>
+                    </div>
+                </a>
+                
+            </div>
+            
+            <div class="destination-card">
+                <a href="Oceanica.html" class="destination-card">
+                    <img src="hotel-images/oc1.jpg" alt="Alona Beach" class="destination-img">
+                    <div class="destination-info">
+                        <h3 class="destination-name">Oceanica Resort</h3>
+                        <p>Deluxe Twin room</p>
+                    </div>
+                </a>
+               
+            </div>
+            
+            <div class="destination-card">
+                <a href="amarela.html" class="destination-card">
+                    <img src="hotel-images/a1.webp" alt="Alona Beach" class="destination-img">
+                    <div class="destination-info">
+                        <h3 class="destination-name">Amarela Resort</h3>
+                        <p>Superior Room</p>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="destination-card">
+                <a href="MomoBH.html" class="destination-card">
+                    <img src="hotel-images/mm1.webp" alt="Alona Beach" class="destination-img">
+                    <div class="destination-info">
+                        <h3 class="destination-name">Momo Beach House</h3>
+                        <p>Standard Room</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <h2>Get Exclusive Deals</h2>
+            <p>Subscribe to our newsletter and receive special offers, travel tips, and exclusive discounts.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+    
+        
+        <footer class="footer">
+          <div class="footer-container">
+              <div class="footer-about">
+                  <div class="footer-logo">
+                      <img src="hotel-images/logo3.png" alt="TropiStay Logo">
+                      <p>TropiStay makes finding your perfect accommodation in Panglao simple and enjoyable. We partner with the best hotels and resorts to bring you unforgettable experiences.</p>
+                  </div>
+                  
+                  <div class="social-links">
+                      <a href="https://www.facebook.com/" class="social-link" aria-label="Facebook">
+                          <i class="fab fa-facebook-f social-icon"></i>
+                      </a>
+                      <a href="https://twitter.com/" class="social-link" aria-label="Twitter">
+                          <i class="fab fa-twitter social-icon"></i>
+                      </a>
+                      <a href="https://www.instagram.com/" class="social-link" aria-label="Instagram">
+                          <i class="fab fa-instagram social-icon"></i>
+                      </a>
+                      <a href="https://www.youtube.com/" class="social-link" aria-label="YouTube">
+                          <i class="fab fa-youtube social-icon"></i>
+                      </a>
+                      <a href="https://www.pinterest.com/" class="social-link" aria-label="Pinterest">
+                          <i class="fab fa-pinterest-p social-icon"></i>
+                      </a>
+                  </div>
+              </div>
+              
+              <div class="footer-links-section">
+                  <h3 class="footer-title">Quick Links</h3>
+                  <ul class="footer-links">
+                      <li><a href="index.html">Home</a></li>
+                      <li><a href="hotel_listing.html">Hotels</a></li>
+                      <li><a href="destinations.html">Destinations</a></li>
+                      <li><a href="activities.html">Activities</a></li>
+                      <li><a href="blog.html">Travel Blog</a></li>
+                  </ul>
+              </div>
+              
+              <div class="footer-links-section">
+                  <h3 class="footer-title">Support</h3>
+                  <ul class="footer-links">
+                      <li><a href="contact.html">Contact Us</a></li>
+                      <li><a href="faq.html">FAQ</a></li>
+                      <li><a href="privacy.html">Privacy Policy</a></li>
+                      <li><a href="terms.html">Terms & Conditions</a></li>
+                      <li><a href="cancellation.html">Cancellation Policy</a></li>
+                  </ul>
+              </div>
+              
+              <div class="footer-contact">
+                  <h3 class="footer-title">Contact Us</h3>
+                  <ul class="footer-links">
+                      <li>
+                          <i class="fas fa-map-marker-alt"></i>
+                          <span>123 Beach Front, Alona Beach, Panglao, Bohol, Philippines</span>
+                      </li>
+                      <li>
+                          <i class="fas fa-phone-alt"></i>
+                          <span>+63 (123) 456-7890</span>
+                      </li>
+                      <li>
+                          <i class="fas fa-envelope"></i>
+                          <span>info@tropistay.com</span>
+                      </li>
+                      <li>
+                          <i class="fas fa-clock"></i>
+                          <span>24/7 Customer Support</span>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          
+          <div class="footer-bottom">
+              <p>&copy; 2025 TropiStay. All rights reserved | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for travelers</p>
+              <div class="payment-methods">
+                  <i class="fab fa-cc-visa"></i>
+                  <i class="fab fa-cc-mastercard"></i>
+                  <i class="fab fa-cc-amex"></i>
+                  <i class="fab fa-cc-paypal"></i>
+                  <i class="fab fa-cc-apple-pay"></i>
+              </div>
+          </div>
+      </footer>
+      
+  
+    
+    <!-- Add this JavaScript code for the slideshow functionality -->
+    <script>
+        // Slideshow functionality
+        let slideIndex = 1;
+        
+        function showSlides() {
+            const slides = document.querySelectorAll('.slide');
+            const navBtns = document.querySelectorAll('.slide-nav-btn');
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+                navBtns[i].classList.remove('active');
+            }
+            
+            slides[slideIndex - 1].classList.add('active');
+            navBtns[slideIndex - 1].classList.add('active');
+            
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            
+            setTimeout(showSlides, 5000); // Change image every 5 seconds
+        }
+        
+        function currentSlide(n) {
+            slideIndex = n;
+            const slides = document.querySelectorAll('.slide');
+            const navBtns = document.querySelectorAll('.slide-nav-btn');
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+                navBtns[i].classList.remove('active');
+            }
+            
+            slides[slideIndex - 1].classList.add('active');
+            navBtns[slideIndex - 1].classList.add('active');
+        }
+        
+        // Initialize slideshow
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlides();
+            
+            // Initialize date inputs with current and next day
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            const checkIn = document.getElementById('check-in');
+            const checkOut = document.getElementById('check-out');
+            
+            if (checkIn && checkOut) {
+                checkIn.valueAsDate = today;
+                checkOut.valueAsDate = tomorrow;
+            }
+        });
+
+        
+    </script>
+    <script src="Search.js"></script>
+>>>>>>> 4df4745db5505792f481c4faaccca79fc2a32e12

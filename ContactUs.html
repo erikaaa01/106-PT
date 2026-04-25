@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Us - TropiStay</title>
+  <link rel="stylesheet" href="ContactUsstlye.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <header>
+    <img src="IMAGES/LOGO2.2 4 (1).png" alt="logo">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="hl.html">Hotels</a>
+      <a href="SignLog.html">Account</a>
+    </nav>
+    <div class="search-container">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search in site" id="searchInput">
+      <div class="suggestions" id="suggestions"></div>
+    </div>
+  </header>
+
+  <div class="floating-shells">
+    <img src="https://i.ibb.co/G53Lym7/shell1.png" class="shell shell1" />
+    <img src="https://i.ibb.co/gZhS0pn/shell2.png" class="shell shell2" />
+    <img src="https://i.ibb.co/pd9LXTJ/shell3.png" class="shell shell3" />
+  </div>
+
+  <main class="contact-section">
+    <h2>Get in Touch with Us</h2>
+    <p class="description">
+      We're here to assist you! Whether you have a question about your booking, need help with finding the perfect hotel in Panglao, or need directions, feel free to contact us anytime.
+    </p>
+
+    <div class="contact-container">
+      <div class="contact-info">
+        <div class="info-block">
+          <i class="fas fa-phone-alt"></i>
+          <div>
+            <h3>Phone</h3>
+            <p>123-456-6789</p>
+          </div>
+        </div>
+        <div class="info-block">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <h3>Email</h3>
+            <p><a href="mailto:TropiStayHapi@gmail.com">TropiStayHapi@gmail.com</a></p>
+          </div>
+        </div>
+        <div class="info-block">
+          <i class="fab fa-facebook"></i>
+          <div>
+            <h3>Social</h3>
+            <p><a href="https://www.facebook.com/TropiStay" target="_blank">TropiStay@fb.com</a></p>
+          </div>
+        </div>
+        <div class="info-block">
+          <i class="fab fa-instagram"></i>
+          <div>
+            <h3>Instagram</h3>
+            <p><a href="https://www.instagram.com/TropiStayInsta" target="_blank">@TropiStayInsta</a></p>
+          </div>
+        </div>
+        <div class="info-block">
+          <i class="fab fa-twitter"></i>
+          <div>
+            <h3>Twitter</h3>
+            <p><a href="https://twitter.com/TropiStayTweet" target="_blank">@TropiStayTweet</a></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h3>Send Message</h3>
+        <form id="contactForm">
+          <input type="text" placeholder="Full Name" required />
+          <input type="email" placeholder="Email" required />
+          <textarea placeholder="Type your Message..." rows="4" required></textarea>
+          <button type="submit" id="submitBtn">Send</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const submitButton = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      alert('Your message has been successfully submitted!');
+      form.reset();
+    });
+  </script>
+  <script src="Search.js"></script>
+
+  <section class="newsletter">
+    <div class="newsletter-container">
+        <h2>Get Exclusive Deals</h2>
+        <p>Subscribe to our newsletter and receive special offers, travel tips, and exclusive discounts.</p>
+        <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Your email address" required>
+            <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+    
+    <footer class="footer">
+      <div class="footer-container">
+          <div class="footer-about">
+              <div class="footer-logo">
+                  <img src="hotel-images/logo3.png" alt="TropiStay Logo">
+                  <p>TropiStay makes finding your perfect accommodation in Panglao simple and enjoyable. We partner with the best hotels and resorts to bring you unforgettable experiences.</p>
+              </div>
+              
+              <div class="social-links">
+                  <a href="https://www.facebook.com/" class="social-link" aria-label="Facebook">
+                      <i class="fab fa-facebook-f social-icon"></i>
+                  </a>
+                  <a href="https://twitter.com/" class="social-link" aria-label="Twitter">
+                      <i class="fab fa-twitter social-icon"></i>
+                  </a>
+                  <a href="https://www.instagram.com/" class="social-link" aria-label="Instagram">
+                      <i class="fab fa-instagram social-icon"></i>
+                  </a>
+                  <a href="https://www.youtube.com/" class="social-link" aria-label="YouTube">
+                      <i class="fab fa-youtube social-icon"></i>
+                  </a>
+                  <a href="https://www.pinterest.com/" class="social-link" aria-label="Pinterest">
+                      <i class="fab fa-pinterest-p social-icon"></i>
+                  </a>
+              </div>
+          </div>
+          
+          <div class="footer-links-section">
+              <h3 class="footer-title">Quick Links</h3>
+              <ul class="footer-links">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="hotel_listing.html">Hotels</a></li>
+                  <li><a href="destinations.html">Destinations</a></li>
+                  <li><a href="activities.html">Activities</a></li>
+                  <li><a href="blog.html">Travel Blog</a></li>
+              </ul>
+          </div>
+          
+          <div class="footer-links-section">
+              <h3 class="footer-title">Support</h3>
+              <ul class="footer-links">
+                  <li><a href="contact.html">Contact Us</a></li>
+                  <li><a href="faq.html">FAQ</a></li>
+                  <li><a href="privacy.html">Privacy Policy</a></li>
+                  <li><a href="terms.html">Terms & Conditions</a></li>
+                  <li><a href="cancellation.html">Cancellation Policy</a></li>
+              </ul>
+          </div>
+          
+          <div class="footer-contact">
+              <h3 class="footer-title">Contact Us</h3>
+              <ul class="footer-links">
+                  <li>
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span>123 Beach Front, Alona Beach, Panglao, Bohol, Philippines</span>
+                  </li>
+                  <li>
+                      <i class="fas fa-phone-alt"></i>
+                      <span>+63 (123) 456-7890</span>
+                  </li>
+                  <li>
+                      <i class="fas fa-envelope"></i>
+                      <span>info@tropistay.com</span>
+                  </li>
+                  <li>
+                      <i class="fas fa-clock"></i>
+                      <span>24/7 Customer Support</span>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      
+      <div class="footer-bottom">
+          <p>&copy; 2025 TropiStay. All rights reserved | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for travelers</p>
+          <div class="payment-methods">
+              <i class="fab fa-cc-visa"></i>
+              <i class="fab fa-cc-mastercard"></i>
+              <i class="fab fa-cc-amex"></i>
+              <i class="fab fa-cc-paypal"></i>
+              <i class="fab fa-cc-apple-pay"></i>
+          </div>
+      </div>
+  </footer>
+  
+
+<!-- Add this JavaScript code for the slideshow functionality -->
+<script>
+    // Slideshow functionality
+    let slideIndex = 1;
+    
+    function showSlides() {
+        const slides = document.querySelectorAll('.slide');
+        const navBtns = document.querySelectorAll('.slide-nav-btn');
+        
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove('active');
+            navBtns[i].classList.remove('active');
+        }
+        
+        slides[slideIndex - 1].classList.add('active');
+        navBtns[slideIndex - 1].classList.add('active');
+        
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+        
+        setTimeout(showSlides, 5000); // Change image every 5 seconds
+    }
+    
+    function currentSlide(n) {
+        slideIndex = n;
+        const slides = document.querySelectorAll('.slide');
+        const navBtns = document.querySelectorAll('.slide-nav-btn');
+        
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove('active');
+            navBtns[i].classList.remove('active');
+        }
+        
+        slides[slideIndex - 1].classList.add('active');
+        navBtns[slideIndex - 1].classList.add('active');
+    }
+    
+    // Initialize slideshow
+    document.addEventListener('DOMContentLoaded', function() {
+        showSlides();
+        
+        // Initialize date inputs with current and next day
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        const checkIn = document.getElementById('check-in');
+        const checkOut = document.getElementById('check-out');
+        
+        if (checkIn && checkOut) {
+            checkIn.valueAsDate = today;
+            checkOut.valueAsDate = tomorrow;
+        }
+    });
+</script>
+<script src="Search.js"></script>
+</body>
+</html>

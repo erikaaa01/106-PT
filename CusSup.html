@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TropiStay Customer Support</title>
+  <link rel="stylesheet" href="CusSupstyle.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+ 
+</head>
+<body>
+  <header>
+    <img src= "IMAGES/LOGO2.2 4 (1).png" alt="TropiStay Logo">
+    <nav>
+      <a href="index.html" >Home</a>
+      <a href="hl.html" >Hotels</a>
+      <a href="SignLog.html" id="account-link">Account</a>
+    </nav>
+    <div class="search-container">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search in site" id="search-input">
+    </div>
+  </header>
+
+  <section class="support-banner">
+    <h1>Customer Support.</h1>
+    <p class="response-time">💙 Support in approx. 30s</p>
+    <div class="banner-buttons">
+    </div>
+  </section>
+
+  <section class="chat-section">
+    <h2>Service Chat</h2>
+    <div class="chat-tabs">
+      <button class="tab active" data-category="hotels">🏨 Hotels and Inns</button>
+      <button class="tab" data-category="family">👨‍👩‍👧‍👦 Family-Friendly</button>
+      <button class="tab" data-category="rated">⭐ Top-Rated</button>
+      <button class="tab" data-category="budget">💰 Budget Stays</button>
+      <button class="tab" data-category="booking">🛏️ Room Booking</button>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item" data-question="promotions">Are there any hotel promotions going on? ➤</div>
+      <div class="faq-item" data-question="change">How do I change my booking? ➤</div>
+      <div class="faq-item" data-question="cancel">How can I cancel my booking? ➤</div>
+      <div class="faq-item" data-question="chat">Have a different question? Chat with us now. ➤</div>
+    </div>
+    <div class="faq-tags">
+      <button data-tag="hot">Hot topics</button>
+      <button data-tag="booking">Booking and Price</button>
+      <button data-tag="query">Booking Query</button>
+      <button data-tag="payment">Payment</button>
+      <button data-tag="info">Hotel Information</button>
+      <button data-tag="more">...</button>
+    </div>
+  </section>
+
+  <div class="chat-container" id="chat-box">
+    <div class="chat-header">
+      <div>Chat with TropiStay Support</div>
+      <div class="close-chat" id="close-chat">×</div>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="message agent-message">
+        Hello! How can I help you with TropiStay today?
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" placeholder="Type your message..." id="message-input">
+      <button id="send-message">Send</button>
+    </div>
+  </div>
+
+  <section class="quick-support">
+    <button class="quick-btn" id="chat-btn">🎧 Chat</button>
+    <button class="quick-btn" id="call-btn">📞 Call Us</button>
+    <button class="quick-btn" id="faq-btn">ℹ️ FAQ</button>
+  </section>
+
+  <section class="guarantee">
+    <h3>Stay Worry-free With Our Reliable Support</h3>
+    <p>Thanks to our extensive TropiStay Service Guarantee, your booking is protected against unexpected issues which might come up. <a href="#" id="learn-more">Learn More</a></p>
+  </section>
+
+  <div class="modal" id="faq-modal">
+    <div class="modal-content">
+      <span class="close" id="close-faq">&times;</span>
+      <h2 class="modal-title" id="faq-title">FAQ</h2>
+      <div class="modal-text" id="faq-text">
+        Loading...
+      </div>
+      <div class="modal-buttons">
+        <button class="modal-button secondary-button" id="close-modal-btn">Close</button>
+        <button class="modal-button primary-button" id="help-btn">Need More Help?</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="call-modal">
+    <div class="modal-content">
+      <span class="close" id="close-call">&times;</span>
+      <h2 class="modal-title">Call Customer Support</h2>
+      <div class="modal-text">
+        Our support team is available 24/7. You can reach us at:
+        <br><br>
+        <strong>📞 1-800-TROPISTAY</strong>
+        <br><br>
+        For international callers:
+        <br>
+        <strong>📞 +1-555-123-4567</strong>
+      </div>
+      <div class="modal-buttons">
+        <button class="modal-button secondary-button" id="close-call-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // FAQ content
+    const faqContent = {
+      promotions: {
+        title: "Current Hotel Promotions",
+        text: "Yes! We have several ongoing promotions:<br><br>1. <strong>Summer Splash:</strong> 20% off beach resorts when booking 5+ nights<br>2. <strong>Family Package:</strong> Kids stay free at selected family-friendly resorts<br>3. <strong>Early Bird:</strong> 15% discount when booking 60 days in advance<br>4. <strong>Weekend Getaway:</strong> Special rates for Friday-Sunday stays<br><br>These promotions are subject to availability and specific terms."
+      },
+      change: {
+        title: "How to Change Your Booking",
+        text: "To change your booking:<br><br>1. Log in to your TropiStay account<br>2. Go to 'My Bookings'<br>3. Select the booking you want to modify<br>4. Click on 'Modify Booking'<br>5. Make your desired changes and confirm<br><br>Please note that changes are subject to availability and may result in price adjustments. If your booking is non-refundable or less than 48 hours before check-in, additional fees may apply."
+      },
+      cancel: {
+        title: "Cancellation Policy",
+        text: "To cancel your booking:<br><br>1. Log in to your TropiStay account<br>2. Navigate to 'My Bookings'<br>3. Select the booking you wish to cancel<br>4. Click 'Cancel Booking'<br>5. Follow the prompts to complete cancellation<br><br>Refund policies vary based on the property and rate type you booked. Most flexible rates allow free cancellation up to 24-48 hours before check-in. Non-refundable rates typically do not provide refunds for cancellations."
+      },
+      chat: {
+        title: "Start a Conversation",
+        text: "Our customer support representatives are ready to help you with any questions you might have about our services."
+      }
+    };
+
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active class from all tabs
+        tabs.forEach(t => t.classList.remove('active'));
+        // Add active class to clicked tab
+        tab.classList.add('active');
+        
+        // Here you would normally fetch and display content for the selected category
+        alert(`You selected the ${tab.textContent} category!`);
+      });
+    });
+
+    // FAQ items functionality
+    const faqItems = document.querySelectorAll('.faq-item');
+    const faqModal = document.getElementById('faq-modal');
+    const faqTitle = document.getElementById('faq-title');
+    const faqText = document.getElementById('faq-text');
+
+    faqItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const questionType = item.getAttribute('data-question');
+        
+        if (questionType === 'chat') {
+          // Open chat instead of modal
+          document.getElementById('chat-box').style.display = 'block';
+        } else if (faqContent[questionType]) {
+          // Show FAQ modal with content
+          faqTitle.innerHTML = faqContent[questionType].title;
+          faqText.innerHTML = faqContent[questionType].text;
+          faqModal.style.display = 'flex';
+        }
+      });
+    });
+
+    // Close FAQ modal
+    document.getElementById('close-faq').addEventListener('click', () => {
+      faqModal.style.display = 'none';
+    });
+
+    document.getElementById('close-modal-btn').addEventListener('click', () => {
+      faqModal.style.display = 'none';
+    });
+
+    document.getElementById('help-btn').addEventListener('click', () => {
+      faqModal.style.display = 'none';
+      document.getElementById('chat-box').style.display = 'block';
+    });
+
+    // Tag buttons functionality
+    const tagButtons = document.querySelectorAll('.faq-tags button');
+    tagButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tag = button.getAttribute('data-tag');
+        alert(`You selected the "${button.textContent}" tag. This would filter results for this category.`);
+      });
+    });
+
+    // Quick support buttons
+    document.getElementById('chat-btn').addEventListener('click', () => {
+      document.getElementById('chat-box').style.display = 'block';
+    });
+
+    document.getElementById('close-chat').addEventListener('click', () => {
+      document.getElementById('chat-box').style.display = 'none';
+    });
+
+    document.getElementById('call-btn').addEventListener('click', () => {
+      document.getElementById('call-modal').style.display = 'flex';
+    });
+
+    document.getElementById('close-call').addEventListener('click', () => {
+      document.getElementById('call-modal').style.display = 'none';
+    });
+
+    document.getElementById('close-call-btn').addEventListener('click', () => {
+      document.getElementById('call-modal').style.display = 'none';
+    });
+
+    document.getElementById('faq-btn').addEventListener('click', () => {
+      // Show a generic FAQ answer
+      faqTitle.innerHTML = "Frequently Asked Questions";
+      faqText.innerHTML = "Browse our comprehensive FAQ section to find answers to common questions about booking, payment, cancellations, and more. If you can't find what you're looking for, our customer support team is available 24/7 to assist you.";
+      faqModal.style.display = 'flex';
+    });
+
+    // Chat functionality
+    const messageInput = document.getElementById('message-input');
+    const sendButton = document.getElementById('send-message');
+    const chatMessages = document.getElementById('chat-messages');
+
+    sendButton.addEventListener('click', sendMessage);
+    messageInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+
+    function sendMessage() {
+      const message = messageInput.value.trim();
+      if (message) {
+        // Add user message
+        addMessage(message, 'user');
+        
+        // Clear input
+        messageInput.value = '';
+        
+        // Simulate agent response after a short delay
+        setTimeout(() => {
+          const responses = [
+            "Thank you for your message. A customer service agent will respond shortly.",
+            "I understand your concern. Let me check that for you.",
+            "Thank you for contacting TropiStay support. How else can I assist you today?",
+            "We appreciate your patience. I'm looking into this matter for you."
+          ];
+          const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+          addMessage(randomResponse, 'agent');
+        }, 1000);
+      }
+    }
+
+    function addMessage(text, sender) {
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message');
+      messageDiv.classList.add(sender === 'user' ? 'user-message' : 'agent-message');
+      messageDiv.textContent = text;
+      
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Header navigation links
+    document.getElementById('home-link').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Navigating to Home page');
+    });
+
+    document.getElementById('hotels-link').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Navigating to Hotels & Room page');
+    });
+
+    document.getElementById('account-link').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Navigating to Account page');
+    });
+
+    // Search functionality
+    document.getElementById('search-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const searchTerm = e.target.value.trim();
+        if (searchTerm) {
+          alert(`Searching for: ${searchTerm}`);
+        }
+      }
+    });
+
+    // Learn more link
+    document.getElementById('learn-more').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('This would navigate to the Service Guarantee details page.');
+    });
+  </script>
+    
+    <section class="newsletter">
+      <div class="newsletter-container">
+          <h2>Get Exclusive Deals</h2>
+          <p>Subscribe to our newsletter and receive special offers, travel tips, and exclusive discounts.</p>
+          <form class="newsletter-form">
+              <input type="email" class="newsletter-input" placeholder="Your email address" required>
+              <button type="submit" class="newsletter-btn">Subscribe</button>
+          </form>
+      </div>
+  </section>
+    
+    <footer class="footer">
+      <div class="footer-container">
+          <div class="footer-about">
+              <div class="footer-logo">
+                  <img src="hotel-images/logo3.png" alt="TropiStay Logo">
+                  <p>TropiStay makes finding your perfect accommodation in Panglao simple and enjoyable. We partner with the best hotels and resorts to bring you unforgettable experiences.</p>
+              </div>
+              
+              <div class="social-links">
+                  <a href="https://www.facebook.com/" class="social-link" aria-label="Facebook">
+                      <i class="fab fa-facebook-f social-icon"></i>
+                  </a>
+                  <a href="https://twitter.com/" class="social-link" aria-label="Twitter">
+                      <i class="fab fa-twitter social-icon"></i>
+                  </a>
+                  <a href="https://www.instagram.com/" class="social-link" aria-label="Instagram">
+                      <i class="fab fa-instagram social-icon"></i>
+                  </a>
+                  <a href="https://www.youtube.com/" class="social-link" aria-label="YouTube">
+                      <i class="fab fa-youtube social-icon"></i>
+                  </a>
+                  <a href="https://www.pinterest.com/" class="social-link" aria-label="Pinterest">
+                      <i class="fab fa-pinterest-p social-icon"></i>
+                  </a>
+              </div>
+          </div>
+          
+          <div class="footer-links-section">
+              <h3 class="footer-title">Quick Links</h3>
+              <ul class="footer-links">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="hotel_listing.html">Hotels</a></li>
+                  <li><a href="destinations.html">Destinations</a></li>
+                  <li><a href="activities.html">Activities</a></li>
+                  <li><a href="blog.html">Travel Blog</a></li>
+              </ul>
+          </div>
+          
+          <div class="footer-links-section">
+              <h3 class="footer-title">Support</h3>
+              <ul class="footer-links">
+                  <li><a href="ContactUs.html">Contact Us</a></li>
+                  <li><a href="CusSup.html">FAQ</a></li>
+                  <li><a href="privacy.html">Privacy Policy</a></li>
+                  <li><a href="terms.html">Terms & Conditions</a></li>
+                  <li><a href="cancellation.html">Cancellation Policy</a></li>
+              </ul>
+          </div>
+          
+          <div class="footer-contact">
+              <h3 class="footer-title">Contact Us</h3>
+              <ul class="footer-links">
+                  <li>
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span>123 Beach Front, Alona Beach, Panglao, Bohol, Philippines</span>
+                  </li>
+                  <li>
+                      <i class="fas fa-phone-alt"></i>
+                      <span>+63 (123) 456-7890</span>
+                  </li>
+                  <li>
+                      <i class="fas fa-envelope"></i>
+                      <span>info@tropistay.com</span>
+                  </li>
+                  <li>
+                      <i class="fas fa-clock"></i>
+                      <span>24/7 Customer Support</span>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      
+      <div class="footer-bottom">
+          <p>&copy; 2025 TropiStay. All rights reserved | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for travelers</p>
+          <div class="payment-methods">
+              <i class="fab fa-cc-visa"></i>
+              <i class="fab fa-cc-mastercard"></i>
+              <i class="fab fa-cc-amex"></i>
+              <i class="fab fa-cc-paypal"></i>
+              <i class="fab fa-cc-apple-pay"></i>
+          </div>
+      </div>
+  </footer>
+  
+
+<!-- Add this JavaScript code for the slideshow functionality -->
+<script>
+    // Slideshow functionality
+    let slideIndex = 1;
+    
+    function showSlides() {
+        const slides = document.querySelectorAll('.slide');
+        const navBtns = document.querySelectorAll('.slide-nav-btn');
+        
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove('active');
+            navBtns[i].classList.remove('active');
+        }
+        
+        slides[slideIndex - 1].classList.add('active');
+        navBtns[slideIndex - 1].classList.add('active');
+        
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+        
+        setTimeout(showSlides, 5000); // Change image every 5 seconds
+    }
+    
+    function currentSlide(n) {
+        slideIndex = n;
+        const slides = document.querySelectorAll('.slide');
+        const navBtns = document.querySelectorAll('.slide-nav-btn');
+        
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove('active');
+            navBtns[i].classList.remove('active');
+        }
+        
+        slides[slideIndex - 1].classList.add('active');
+        navBtns[slideIndex - 1].classList.add('active');
+    }
+    
+    // Initialize slideshow
+    document.addEventListener('DOMContentLoaded', function() {
+        showSlides();
+        
+        // Initialize date inputs with current and next day
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        const checkIn = document.getElementById('check-in');
+        const checkOut = document.getElementById('check-out');
+        
+        if (checkIn && checkOut) {
+            checkIn.valueAsDate = today;
+            checkOut.valueAsDate = tomorrow;
+        }
+    });
+</script>
+<script src="Search.js"></script>
+</body>
+</html>

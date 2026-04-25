@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TropiStay</title>
+    <link rel="stylesheet" href="style-local.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-bar">
+                <img src="photo_logo\LOGO2.2.png" alt="logo" width="200px">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="hotel_listing.html">Hotels</a></li>
+                    <li><a href="account.html">My Account</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="page-layout">  
+      <main class="main-content">
+          <section class="hotel-details-container">
+              <!-- Hotel Gallery Section -->
+              <div class="hotel-gallery">
+                  <div class="gallery-grid">
+                      <div class="main-image">
+                          <img id="main-hotel-img" src="" alt="Main hotel image">
+                      </div>
+                      <div class="thumbnails">
+                          <img class="thumbnail" src="" alt="Hotel thumbnail 1">
+                          <img class="thumbnail" src="" alt="Hotel thumbnail 2">
+                          <img class="thumbnail" src="" alt="Hotel thumbnail 3">
+                          <img class="thumbnail" src="" alt="Hotel thumbnail 4">
+                      </div>
+                  </div>
+              </div>
+
+              <!-- Hotel Info Section -->
+              <div class="hotel-info-section">
+                  <div class="hotel-header">
+                      <h1 id="hotel-name">Hotel Name</h1>
+                      <div class="hotel-rating">
+                          <span id="hotel-rating-stars"></span>
+                          <span id="hotel-location"></span>
+                      </div>
+                  </div>
+
+                  <div class="hotel-tabs">
+                      <button class="tab-btn active" data-tab="overview">Overview</button>
+                      <button class="tab-btn" data-tab="rooms">Rooms</button>
+                      <button class="tab-btn" data-tab="facilities">Facilities</button>
+                      <button class="tab-btn" data-tab="reviews">Reviews</button>
+                      <button class="tab-btn" data-tab="location">Location</button>
+                  </div>
+
+                  <div class="tab-content active" id="overview-tab">
+                      <h2>About This Hotel</h2>
+                      <p id="hotel-description"></p>
+                      
+                      <div class="highlights-section">
+                          <h3>Highlights</h3>
+                          <ul id="hotel-highlights"></ul>
+                      </div>
+                  </div>
+
+                  <div class="tab-content" id="rooms-tab">
+                      <h2>Available Rooms</h2>
+                      <div class="rooms-list" id="rooms-container">
+                          <!-- Rooms will be populated by JavaScript -->
+                      </div>
+                  </div>
+
+                  <div class="tab-content" id="facilities-tab">
+                      <h2>Facilities</h2>
+                      <ul id="hotel-facilities"></ul>
+                      
+                      <div class="offers-section">
+                          <h3>Staycation Offers Available</h3>
+                          <div id="hotel-offers"></div>
+                      </div>
+                  </div>
+
+                  <div class="tab-content" id="reviews-tab">
+                      <h2>Guest Reviews</h2>
+                      <div class="average-rating">
+                          <span id="average-rating"></span>
+                          <span id="review-count"></span>
+                      </div>
+                      <div id="hotel-reviews"></div>
+                  </div>
+
+                  <div class="tab-content" id="location-tab">
+                      <h2>Location</h2>
+                      <p id="hotel-address"></p>
+                      <div id="hotel-map" class="hotel-map"></div>
+                  </div>
+              </div>
+          </section>
+      </main>
+  </div>
+
+  <!-- Room Details Modal -->
+  <div class="room-modal-overlay" id="roomModal">
+      <div class="room-modal">
+          <button class="close-room-modal">&times;</button>
+          <div class="room-modal-content">
+              <div class="room-gallery">
+                  <div class="room-main-image">
+                      <img id="room-main-img" src="" alt="Room main image">
+                  </div>
+                  <div class="room-thumbnails">
+                      <!-- Thumbnails will be added by JavaScript -->
+                  </div>
+              </div>
+              <div class="room-details">
+                  <h2 id="room-type"></h2>
+                  <div class="room-specs">
+                      <span id="room-size"></span>
+                      <span id="room-capacity"></span>
+                  </div>
+                  <div class="room-rating">
+                      <span class="rating-value">9.1</span>
+                      <span>Based on 250 reviews</span>
+                  </div>
+                  <p id="room-description"></p>
+                  
+                  <div class="room-amenities">
+                      <h3>In your private bathroom:</h3>
+                      <ul id="bathroom-amenities"></ul>
+                      
+                      <h3>Facilities:</h3>
+                      <ul id="room-facilities"></ul>
+                  </div>
+                  
+                  <div class="room-price">
+                      <span id="room-price"></span> per night
+                  </div>
+                  
+                  <button class="book-room-btn">Book Now</button>
+              </div>
+          </div>
+      </div>
+  </div>
+<footer class="footer">
+    <div class="footer-container">
+      <div class="social-links">
+        <a href="https://www.facebook.com/" class="social-link facebook">
+          <img src="footer\facebook.png" width="20px" alt="Facebook Logo"> Facebook<br><span>Join us on Facebook</span>
+        </a>
+        <a href="https://twitter.com/i/flow/signup?lang=en" class="social-link twitter">
+          <img src="footer\x.png" alt="Twitter Logo"> Twitter<br><span>Join us on   Twitter</span>
+        </a>
+        <a href="https://www.youtube.com/hashtag/youtubelink" class="social-link youtube">
+          <img src="footer\png-transparent-round-youtube-logo.png" alt="YouTube Logo"> Youtube<br><span>Join us on Youtube</span>
+        </a>
+        <a href="https://www.instagram.com/accounts/login/?hl=en" class="social-link instagram">
+          <img src="footer\instagram.jpg" alt="Instagram Logo"> Instagram<br><span>Join us on Instagram</span>
+        </a>
+        <br>
+      </div>
+      <div class="footer-logo">
+        <img src="photo_logo\logo_IPT.png" alt="Logo" >
+      </div>
+      <div class="footer-text">
+        <p>&copy; 2023 TropiStay App. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+    <script src="hotel_data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

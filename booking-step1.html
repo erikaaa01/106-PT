@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="BookingConfirmation.css">
+  <script src="bookingScript.js" type="text/javascript"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TropiStay Booking</title>
+  <style>
+    .back-button {
+      background-color: #ffffff; /* Red */
+      border: 12px;
+      border-color: black;
+      color: rgb(0, 0, 0);
+      padding: 12px 24px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      
+    }
+
+    .back-button:hover {
+      background-color: #e13434;
+      transform: scale(1.05);
+      color: white;
+    }
+
+    .back-button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    
+    <div class="logo">
+      <a href="index.html">
+        <img src="hotel-images/logo.png" alt="logo">
+      </a>
+    </div>
+    <div class="steps">
+      <div class="step-indicator step1 active"><span>1</span><p>Customer Information</p></div>
+      <div class="step-indicator step2"><span>2</span><p>Payment Information</p></div>
+      <div class="step-indicator step3"><span>3</span><p>Booking is Confirmed</p></div>
+    </div>
+  </header>
+
+  <button class="back-button" onclick="history.back()">Exit</button>
+
+
+  <!-- Step 1 -->
+  <div id="step1" class="form">
+    <div class="form-section">
+      <div class="form1">
+        <div class="stay-title">Guest Information:</div>
+        <div class="form-row">
+          <div class="form-group"><input id="first-name" type="text" placeholder="First Name"></div>
+          <div class="form-group"><input id="last-name" type="text" placeholder="Last Name"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><input id="email" type="email" placeholder="Email"></div>
+          <div class="form-group"><input id="country" type="text" placeholder="Country / Region of Residence"></div>
+        </div>
+        <div class="form-group"><input id="phone-number" type="text" placeholder="Phone Number (optional)"></div>
+
+        <div class="form-group">
+          <label>Who are you Booking for?</label><br>
+          <select>
+            <option>I'm the main guest</option>
+            <option>I'm booking for someone else</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Are you travelling for work?</label><br>
+          <select>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="stay-box">
+        <div class="stay-title">Stay Duration:</div>
+        <div class="stay-grid">
+          <div class="stay-item">
+            <small>Check-in</small>
+            <div><strong id="check-in-date">Sun, May 1</strong><br><span class="time">02:00 PM</span></div>
+          </div>
+          <div class="stay-item">
+            <small>Check-out</small>
+            <div><strong id="check-out-date">Sat, May 10</strong><br><span class="time">12:00 PM</span></div>
+          </div>
+          <div class="stay-item">
+            <small>Length of Stay</small>
+            <div><strong id="nights-count">1</strong><br><span class="time">night</span></div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="form">
+    <div class="form-section">
+    <div class="form4">
+    <div class="section-title">Special Requests</div>
+    <div class="form-group" style="padding: 0 20px;">
+      <p>Special requests can't be guaranteed, but the hotel will do its best to meet your needs. You can always make a special request after your booking is complete.</p>
+      <textarea placeholder="Please write your requests in English (optional)"></textarea>
+    </div>
+</div>
+   
+
+    <div class="form3">
+      <div class="room-box">
+        <div class="picture">
+          <img id="hotel-image" src="" alt="Hotel Image">
+        </div>
+        <div class="title-rating">
+          <h3>Henann Resort Alona Beach</h3>
+          <img src="hotel-images/star-rating.png" alt="rating">
+        </div>
+        <p style="margin-top: -14px; font-size: 12px;">Alona Beach, Panglao Island, Bohol, Philippines, 6340</p>
+        <div class="Offers">
+          <div class="details-struct">
+          <div class="image1">
+            <img id="room-image" src="" alt="Room Image">
+          </div>
+        <div class="room-details">
+          <div class="room-details2">
+          <strong><span id="room-quantity">1</span> x <span id="room-name">Deluxe Room</span></strong><br>
+          <p style="font-size: 14px;">
+            35 m² · Max 2 adults<br>
+            🥐 Breakfast Included<br>
+            ✅ Non-refundable<br>
+            📶 Free WiFi<br>
+            🚗 Free Parking
+          </p>
+        </div>
+        </div>
+      </div>
+        <div class="price-box">
+            <p>Total Price:</p>
+            <strong><span id="room-price">₱ 10,065</span></strong><br>
+             <small>Includes Taxes and Fees</small>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Proceed Button -->
+<div class="container1">
+ 
+  <button id="proceed-btn" class="btn"><b>Proceed to Payment</b></button>
+</div>
+  </div>
+</div>
+
+<!-- Important: Load the JS file AFTER the DOM content is ready -->
+
+<section class="newsletter">
+  <div class="newsletter-container">
+      <h2>Get Exclusive Deals</h2>
+      <p>Subscribe to our newsletter and receive special offers, travel tips, and exclusive discounts.</p>
+      <form class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="Your email address" required>
+          <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
+  </div>
+</section>
+  
+  <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-about">
+            <div class="footer-logo">
+                <img src="hotel-images/logo3.png" alt="TropiStay Logo">
+                <p>TropiStay makes finding your perfect accommodation in Panglao simple and enjoyable. We partner with the best hotels and resorts to bring you unforgettable experiences.</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.facebook.com/" class="social-link" aria-label="Facebook">
+                    <i class="fab fa-facebook-f social-icon"></i>
+                </a>
+                <a href="https://twitter.com/" class="social-link" aria-label="Twitter">
+                    <i class="fab fa-twitter social-icon"></i>
+                </a>
+                <a href="https://www.instagram.com/" class="social-link" aria-label="Instagram">
+                    <i class="fab fa-instagram social-icon"></i>
+                </a>
+                <a href="https://www.youtube.com/" class="social-link" aria-label="YouTube">
+                    <i class="fab fa-youtube social-icon"></i>
+                </a>
+                <a href="https://www.pinterest.com/" class="social-link" aria-label="Pinterest">
+                    <i class="fab fa-pinterest-p social-icon"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer-links-section">
+            <h3 class="footer-title">Quick Links</h3>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="hotel_listing.html">Hotels</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="activities.html">Activities</a></li>
+                <li><a href="blog.html">Travel Blog</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-links-section">
+            <h3 class="footer-title">Support</h3>
+            <ul class="footer-links">
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms & Conditions</a></li>
+                <li><a href="cancellation.html">Cancellation Policy</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-contact">
+            <h3 class="footer-title">Contact Us</h3>
+            <ul class="footer-links">
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>123 Beach Front, Alona Beach, Panglao, Bohol, Philippines</span>
+                </li>
+                <li>
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+63 (123) 456-7890</span>
+                </li>
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <span>info@tropistay.com</span>
+                </li>
+                <li>
+                    <i class="fas fa-clock"></i>
+                    <span>24/7 Customer Support</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2025 TropiStay. All rights reserved | Designed with <i class="fas fa-heart" style="color: #ff6b6b;"></i> for travelers</p>
+        <div class="payment-methods">
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+            <i class="fab fa-cc-amex"></i>
+            <i class="fab fa-cc-paypal"></i>
+            <i class="fab fa-cc-apple-pay"></i>
+        </div>
+    </div>
+</footer>
+
+
+
+</script>
+</body>
+</html>

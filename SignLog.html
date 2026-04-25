@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TropiStay - Sign In</title>
+
+<link rel="stylesheet" href="SignLog.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+  <img src="IMAGES/LOGO2.2 4 (1).png" id="logo">
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="hl.html">Hotels</a>
+    <a href="SignLog.html">Account</a>
+  </nav>
+  
+
+  <div class="search-container">
+    <i class="fas fa-search"></i>
+    <input type="text" placeholder="Search in site">
+  </div>
+</header>
+
+<div class="main-content">
+
+<div class="floating-bubbles" id="bubbles"></div>
+
+<div class="login-container">
+
+
+  <!-- LOGIN BOX -->
+  <div id="loginBox">
+    <h1>Welcome Back</h1>
+    <p>Login in to continue to TropiStay</p>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="loginEmail" class="form-control" placeholder="id@email.com">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPassword" class="form-control" placeholder="Password">
+    </div>
+
+    <button class="submit-btn" onclick="login()">Login</button>
+
+    <p style="text-align:center; margin-top:15px; font-size:14px;">
+    Don't have an account?
+    <span onclick="showRegister()" style="color:#0077ff; cursor:pointer;">
+      Create Account
+    </span>
+  </p>
+  </div>
+
+  <!-- REGISTER BOX -->
+  <div id="registerBox" style="display:none;">
+    <h1>Create Account</h1>
+    <p>Join TropiStay for exclusive deals</p>
+
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="regUsername" class="form-control" placeholder="Username">
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="regEmail" class="form-control" placeholder="id@email.com">
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="regPassword" class="form-control" placeholder="Password">
+    </div>
+    <button class="submit-btn" onclick="register()">Create Account</button>
+    
+    <p style="text-align:center; margin-top:15px; font-size:14px;">
+    Already have an account?
+    <span onclick="showLogin()" style="color:#0077ff; cursor:pointer;">
+      Login
+    </span>
+  </p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+
+// FLOATING BUBBLES
+function createBubbles() {
+  const container = document.getElementById("bubbles");
+  for (let i = 0; i < 12; i++) {
+    let b = document.createElement("div");
+    b.classList.add("bubble");
+    b.style.left = Math.random() * 100 + "%";
+    b.style.top = Math.random() * 100 + "%";
+    container.appendChild(b);
+  }
+}
+window.onload = createBubbles;
+
+// SWITCH UI
+function showLogin() {
+  document.getElementById("loginBox").style.display = "block";
+  document.getElementById("registerBox").style.display = "none";
+}
+
+function showRegister() {
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("registerBox").style.display = "block";
+}
+
+// REGISTER
+function register() {
+  const username = document.getElementById("regUsername").value;
+  const email = document.getElementById("regEmail").value;
+  const password = document.getElementById("regPassword").value;
+
+  if (!username || !email || !password) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  if (users.find(u => u.email === email)) {
+    alert("Email already exists");
+    return;
+  }
+
+  users.push({ username, email, password });
+  localStorage.setItem("users", JSON.stringify(users));
+
+  alert("Account created successfully!");
+  showLogin();
+}
+
+// LOGIN
+function login() {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  fetch("auth.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      action: "login",
+      email: email,
+      password: password
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    console.log("LOGIN:", data);
+
+    if (data.success) {
+      // ✅ STORE WHOLE USER
+      localStorage.setItem("currentUser", JSON.stringify(data));
+      localStorage.setItem("isLoggedIn", "true");
+
+      window.location.href = "account.html";
+    } else {
+      alert(data.message);
+    }
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Server error");
+  });
+}
+</script>
+
+</script>
+
+</body>
+</html>
