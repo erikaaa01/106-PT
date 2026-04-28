@@ -251,36 +251,141 @@ function initBookingStep2() {
   if (data.roomImage  && document.getElementById("room-image"))  document.getElementById("room-image").src  = data.roomImage;
   if (data.hotelImage && document.getElementById("hotel-image")) document.getElementById("hotel-image").src = data.hotelImage;
 
+  // ── GCash / Card toggle ──────────────────────────────────────
+  const paymentSelect = document.getElementById('paymentMethod');
+  const cardFields    = document.getElementById('card-fields');
+  const gcashFields   = document.getElementById('gcash-fields');
+
+  function togglePaymentFields() {
+    const isGcash = paymentSelect && paymentSelect.value === 'gcash';
+    if (cardFields)  cardFields.style.display  = isGcash ? 'none' : 'block';
+    if (gcashFields) gcashFields.style.display = isGcash ? 'block' : 'none';
+  }
+
+  if (paymentSelect) {
+    paymentSelect.addEventListener('change', togglePaymentFields);
+    togglePaymentFields(); // run on load
+  }
+
+  // ── Helper: show/clear inline errors ────────────────────────
+  function setError(inputId, errId, message) {
+    const input = document.getElementById(inputId);
+    const err   = document.getElementById(errId);
+    if (!input || !err) return;
+    if (message) {
+      input.classList.add('input-error');
+      err.textContent = message;
+    } else {
+      input.classList.remove('input-error');
+      err.textContent = '';
+    }
+  }
+
+  // Clear errors on input
+  ['cardholderName','cardNumber','expirationDate','cvv','gcashNumber','gcashName'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', () => el.classList.remove('input-error'));
+  });
+
+  // Auto-format card number with spaces
+  const cardNumberInput = document.getElementById('cardNumber');
+  if (cardNumberInput) {
+    cardNumberInput.addEventListener('input', function () {
+      let val = this.value.replace(/\D/g, '').substring(0, 16);
+      this.value = val.replace(/(.{4})/g, '$1 ').trim();
+    });
+  }
+
+  // Auto-format expiry MM/YY
+  const expiryInput = document.getElementById('expirationDate');
+  if (expiryInput) {
+    expiryInput.addEventListener('input', function () {
+      let val = this.value.replace(/\D/g, '').substring(0, 4);
+      if (val.length >= 3) val = val.substring(0,2) + '/' + val.substring(2);
+      this.value = val;
+    });
+  }
+
+  // ── Confirm button ───────────────────────────────────────────
   const confirmBtn = document.getElementById('confirm-btn');
   if (!confirmBtn) return;
 
   confirmBtn.addEventListener('click', function () {
-    const paymentMethod  = document.getElementById('paymentMethod').value;
-    const cardholderName = document.querySelector('input[placeholder="Cardholder Name"]').value.trim();
-    const cardNumber     = document.querySelector('input[placeholder="Card Number"]').value.trim();
-    const expirationDate = document.querySelector('input[placeholder="Expiration Date (MM/YY)"]').value.trim();
-    const cvv            = document.querySelector('input[placeholder="CVV"]').value.trim();
+    const method  = paymentSelect ? paymentSelect.value : '';
+    const isGcash = method === 'gcash';
+    let valid = true;
 
-    if (!cardholderName || !cardNumber || !expirationDate || !cvv) {
-      alert('Please fill in all payment information');
-      return;
-    }
-    if (cardNumber.replace(/\s/g, '').length < 13) {
-      alert('Please enter a valid card number');
-      return;
-    }
+    if (isGcash) {
+      // Validate GCash fields
+      const gcashNum  = (document.getElementById('gcashNumber')?.value || '').trim();
+      const gcashName = (document.getElementById('gcashName')?.value || '').trim();
 
-    const paymentInfo = {
-      paymentMethod,
-      cardholderName,
-      cardNumberLast4: cardNumber.slice(-4),
-      timestamp: new Date().toISOString()
-    };
-    localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
+      setError('gcashNumber', 'err-gcash', '');
+      setError('gcashName',   'err-gcash-name', '');
+
+      if (!gcashNum) {
+        setError('gcashNumber', 'err-gcash', 'GCash number is required.'); valid = false;
+      } else if (!/^09\d{9}$/.test(gcashNum)) {
+        setError('gcashNumber', 'err-gcash', 'Enter a valid GCash number (e.g. 09XXXXXXXXX).'); valid = false;
+      }
+      if (!gcashName) {
+        setError('gcashName', 'err-gcash-name', 'Account name is required.'); valid = false;
+      }
+
+      if (!valid) return;
+
+      const paymentInfo = {
+        paymentMethod: 'GCash',
+        cardholderName: gcashName,
+        cardNumberLast4: gcashNum.slice(-4),
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
+
+    } else {
+      // Validate card fields
+      const cardholderName = (document.getElementById('cardholderName')?.value || '').trim();
+      const cardNumber     = (document.getElementById('cardNumber')?.value || '').trim();
+      const expirationDate = (document.getElementById('expirationDate')?.value || '').trim();
+      const cvv            = (document.getElementById('cvv')?.value || '').trim();
+
+      setError('cardholderName', 'err-name',   '');
+      setError('cardNumber',     'err-number', '');
+      setError('expirationDate', 'err-expiry', '');
+      setError('cvv',            'err-cvv',    '');
+
+      if (!cardholderName) {
+        setError('cardholderName', 'err-name', 'Cardholder name is required.'); valid = false;
+      }
+      if (!cardNumber) {
+        setError('cardNumber', 'err-number', 'Card number is required.'); valid = false;
+      } else if (cardNumber.replace(/\s/g, '').length < 13) {
+        setError('cardNumber', 'err-number', 'Enter a valid card number (13–16 digits).'); valid = false;
+      }
+      if (!expirationDate) {
+        setError('expirationDate', 'err-expiry', 'Expiration date is required.'); valid = false;
+      } else if (!/^\d{2}\/\d{2}$/.test(expirationDate)) {
+        setError('expirationDate', 'err-expiry', 'Use MM/YY format (e.g. 08/27).'); valid = false;
+      }
+      if (!cvv) {
+        setError('cvv', 'err-cvv', 'CVV is required.'); valid = false;
+      } else if (!/^\d{3,4}$/.test(cvv)) {
+        setError('cvv', 'err-cvv', 'CVV must be 3 or 4 digits.'); valid = false;
+      }
+
+      if (!valid) return;
+
+      const paymentInfo = {
+        paymentMethod: method,
+        cardholderName,
+        cardNumberLast4: cardNumber.replace(/\s/g,'').slice(-4),
+        timestamp: new Date().toISOString()
+      };
+      localStorage.setItem("paymentInfo", JSON.stringify(paymentInfo));
+    }
 
     const bookingReference = generateRandomId(10);
     localStorage.setItem("bookingReference", bookingReference);
-
     window.location.href = 'booking-step3.html';
   });
 }

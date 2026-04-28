@@ -34,42 +34,58 @@ function displayUserBookings() {
   let html = '';
 
   // ===============================
-  // TABLE LAYOUT (NEW DESIGN)
+  // TABLE LAYOUT
   // ===============================
   if (isTable) {
     bookings.forEach((booking, index) => {
       html += `
-        <tr>
-          <td>#${index + 1}</td>
-          <td><span class="status confirmed">Confirmed</span></td>
-          <td>${booking.stayCheckIn} - ${booking.stayCheckOut}</td>
-          <td>${booking.guests}</td>
+        <tr data-booking-reference="${booking.referenceNo || booking.bookingId || ''}">
+          <td><span class="status ${booking.status || 'confirmed'}">${booking.status || 'Confirmed'}</span></td>
+
+          <td>${booking.stayCheckIn || ''} - ${booking.stayCheckOut || ''}</td>
+
+          <td>${booking.guests || ''}</td>
+
           <td class="customer-info">
-            <strong>${booking.fullName || "N/A"}</strong><br>
-            ${booking.email || userEmail}<br>
-            ${booking.phone || "N/A"}
+            ${booking.fullName ? `<strong>${booking.fullName}</strong><br>` : ""}
+            ${booking.email || userEmail ? `${booking.email || userEmail}<br>` : ""}
+            ${booking.phone ? booking.phone : ""}
           </td>
+
           <td>₱${Number(booking.totalPrice || 0).toLocaleString()}</td>
-          <td>${booking.roomType || "N/A"}</td>
-          <td>${booking.bookingDate ? new Date(booking.bookingDate).toLocaleDateString() : "N/A"}</td>
+
+          <td>${booking.roomType || ""}</td>
+
+          <td>${booking.bookingDate ? new Date(booking.bookingDate).toLocaleDateString() : ""}</td>
+
+          <td>
+            ${booking.status !== "cancelled"
+              ? `<button class="cancel-btn"
+                   data-index="${index}"
+                   data-reference="${booking.referenceNo || booking.bookingId || ''}">
+                   Cancel
+                 </button>`
+              : ""
+            }
+          </td>
         </tr>
       `;
     });
   }
 
   // ===============================
-  // CARD LAYOUT (OLD DESIGN - SAFE)
+  // CARD LAYOUT
   // ===============================
   else {
     html = '<div class="bookings-list">';
 
     bookings.forEach((booking, index) => {
       html += `
-        <div class="booking-card">
+        <div class="booking-card" data-booking-reference="${booking.referenceNo || booking.bookingId || ''}">
           <div class="booking-header">
             <h3>Booking #${index + 1}</h3>
             <span class="booking-id">
-              Ref: ${booking.referenceNo || booking.bookingId || "N/A"}
+              Ref: ${booking.referenceNo || booking.bookingId || ""}
             </span>
           </div>
 
@@ -79,21 +95,29 @@ function displayUserBookings() {
             </div>
 
             <div class="booking-info">
-              <p><strong>Room Type:</strong> ${booking.roomType || "N/A"}</p>
-              <p><strong>Check-in:</strong> ${booking.stayCheckIn || "N/A"}</p>
-              <p><strong>Check-out:</strong> ${booking.stayCheckOut || "N/A"}</p>
-              <p><strong>Nights:</strong> ${booking.stayNights || "N/A"}</p>
-              <p><strong>Guests:</strong> ${booking.guests || "N/A"}</p>
+              <p><strong>Room Type:</strong> ${booking.roomType || ""}</p>
+              <p><strong>Check-in:</strong> ${booking.stayCheckIn || ""}</p>
+              <p><strong>Check-out:</strong> ${booking.stayCheckOut || ""}</p>
+              <p><strong>Nights:</strong> ${booking.stayNights || ""}</p>
+              <p><strong>Guests:</strong> ${booking.guests || ""}</p>
               <p><strong>Total Price:</strong> ₱${Number(booking.totalPrice || 0).toLocaleString()}</p>
               <p>
                 <strong>Booking Date:</strong>
-                ${booking.bookingDate ? new Date(booking.bookingDate).toLocaleDateString() : "N/A"}
+                ${booking.bookingDate ? new Date(booking.bookingDate).toLocaleDateString() : ""}
               </p>
             </div>
           </div>
 
           <div class="booking-status">
-            <span class="status confirmed">Confirmed</span>
+            <span class="status ${booking.status || 'confirmed'}">${booking.status || 'Confirmed'}</span>
+            ${booking.status !== "cancelled"
+              ? `<button class="cancel-btn"
+                   data-index="${index}"
+                   data-reference="${booking.referenceNo || booking.bookingId || ''}">
+                   Cancel
+                 </button>`
+              : ""
+            }
           </div>
         </div>
       `;
@@ -107,7 +131,62 @@ function displayUserBookings() {
 
 
 // ===============================
-// 3. RUN ON PAGE LOAD
+// 3. CANCEL BOOKING
+// ===============================
+let selectedIndex = null;
+let selectedReference = null;
+
+document.addEventListener("click", function(e) {
+  if (e.target.classList.contains("cancel-btn")) {
+    selectedIndex     = e.target.getAttribute("data-index");
+    selectedReference = e.target.getAttribute("data-reference");
+    document.getElementById("cancel-modal").style.display = "flex";
+  }
+});
+
+document.getElementById("close-modal")?.addEventListener("click", () => {
+  document.getElementById("cancel-modal").style.display = "none";
+});
+
+document.getElementById("confirm-cancel")?.addEventListener("click", () => {
+  const userEmail    = getCurrentUserEmail();
+  const userBookings = JSON.parse(localStorage.getItem('userBookings') || '{}');
+
+  // ── Step 1: update localStorage ─────────────────────────────────────────
+  if (userBookings[userEmail] && userBookings[userEmail][selectedIndex]) {
+    userBookings[userEmail][selectedIndex].status = "cancelled";
+    localStorage.setItem('userBookings', JSON.stringify(userBookings));
+  }
+
+  // ── Step 2: update the database via PHP ─────────────────────────────────
+  if (selectedReference) {
+    fetch("api/cancel_booking.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ booking_reference: selectedReference })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (!data.success) {
+        console.warn("DB cancel failed:", data.message);
+      }
+    })
+    .catch(err => {
+      console.error("Network error during DB cancel:", err);
+    });
+  }
+
+  // ── Step 3: close modal and refresh list ────────────────────────────────
+  document.getElementById("cancel-modal").style.display = "none";
+  selectedIndex     = null;
+  selectedReference = null;
+
+  displayUserBookings();
+});
+
+
+// ===============================
+// 4. RUN ON PAGE LOAD
 // ===============================
 document.addEventListener("DOMContentLoaded", function () {
   displayUserBookings();

@@ -8,6 +8,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TropiStay Booking</title>
   <style>
+    /* Blue focus on payment inputs */
+    #card-fields input:focus,
+    #gcash-fields input:focus {
+      outline: none;
+      border: 2px solid #007bff;
+      background-color: #f0f7ff;
+    }
+    /* Red border on invalid inputs */
+    #card-fields input.input-error,
+    #gcash-fields input.input-error {
+      border: 2px solid #e53935 !important;
+      background-color: #fff5f5 !important;
+    }
+    /* Error message pop-up */
+    #card-fields .error-message,
+    #gcash-fields .error-message {
+      display: block;
+      color: #e53935;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 5px;
+      padding: 4px 8px;
+      background-color: #fff0f0;
+      border-left: 3px solid #e53935;
+      border-radius: 4px;
+      position: static;
+      animation: popIn 0.2s ease;
+    }
+    #card-fields .error-message:empty,
+    #gcash-fields .error-message:empty {
+      display: none;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    /* Payment Information heading blue */
+    #card-fields h3, #gcash-fields h3 {
+      color: #007bff;
+    }
+
     .back-button {
       background-color: #ffffff; /* Red */
       border: 12px;
@@ -47,8 +88,8 @@
         </a>
       </div>
         <div class="steps">
-          <div class="step-indicator step1 active"><span>1</span><p>Customer Information</p></div>
-          <div class="step-indicator step2"><span>2</span><p>Payment Information</p></div>
+          <div class="step-indicator step1"><span>1</span><p>Customer Information</p></div>
+          <div class="step-indicator step2 active"><span>2</span><p>Payment Information</p></div>
           <div class="step-indicator step3"><span>3</span><p>Booking is Confirmed</p></div>
         </div>
       </header>
@@ -76,23 +117,53 @@
           </div>
         </div>
         <div class="payment-method"> <br>
-          <label for="paymentMethod">Select payment method </label>
+          <label for="paymentMethod">Select payment method</label>
           <select id="paymentMethod" name="paymentMethod" required>
             <option value="visa-mastercard">Visa / Mastercard / Amex / JCB</option>
             <option value="discover">Discover</option>
             <option value="diners">Diners</option>
             <option value="unionpay">UnionPay - Credit Card</option>
+            <option value="gcash">GCash</option>
           </select>
-          <div class="selected-output" id="selectedOutput">
+        </div>
+
+        <!-- Card fields (hidden when GCash is selected) -->
+        <div id="card-fields">
+          <h3 style="color:#007bff; margin-bottom:12px;">Payment Information</h3>
+          <div class="form-group">
+            <input type="text" id="cardholderName" placeholder="Cardholder Name" autocomplete="cc-name">
+            <span class="error-message" id="err-name"></span>
+          </div>
+          <div class="form-group">
+            <input type="text" id="cardNumber" placeholder="Card Number" maxlength="19" autocomplete="cc-number">
+            <span class="error-message" id="err-number"></span>
+          </div>
+          <div class="form-group">
+            <input type="text" id="expirationDate" placeholder="Expiration Date (MM/YY)" maxlength="5" autocomplete="cc-exp">
+            <span class="error-message" id="err-expiry"></span>
+          </div>
+          <div class="form-group">
+            <input type="text" id="cvv" placeholder="CVV" maxlength="4" autocomplete="cc-csc">
+            <span class="error-message" id="err-cvv"></span>
           </div>
         </div>
-          <div>
-            <h3>Payment Information</h3>
-            <div class="form-group"><input type="text" placeholder="Cardholder Name"></div>
-            <div class="form-group"><input type="text" placeholder="Card Number"></div>
-            <div class="form-group"><input type="text" placeholder="Expiration Date (MM/YY)"></div>
-            <div class="form-group"><input type="text" placeholder="CVV"></div>
+
+        <!-- GCash fields (shown only when GCash is selected) -->
+        <div id="gcash-fields" style="display:none;">
+          <h3 style="color:#007bff; margin-bottom:12px;">GCash Payment</h3>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <img src="hotel-images/gcash.png" onerror="this.style.display='none'" alt="GCash" style="height:40px;">
+            <span style="font-size:13px;color:#555;">You will be asked to confirm payment via GCash on the next step.</span>
           </div>
+          <div class="form-group">
+            <input type="text" id="gcashNumber" placeholder="GCash Mobile Number (09XXXXXXXXX)" maxlength="11">
+            <span class="error-message" id="err-gcash"></span>
+          </div>
+          <div class="form-group">
+            <input type="text" id="gcashName" placeholder="GCash Account Name">
+            <span class="error-message" id="err-gcash-name"></span>
+          </div>
+        </div>
         </div>
     
         <div class="stay-box">
@@ -164,16 +235,7 @@
 </script>
 
   
-<section class="newsletter">
-  <div class="newsletter-container">
-      <h2>Get Exclusive Deals</h2>
-      <p>Subscribe to our newsletter and receive special offers, travel tips, and exclusive discounts.</p>
-      <form class="newsletter-form">
-          <input type="email" class="newsletter-input" placeholder="Your email address" required>
-          <button type="submit" class="newsletter-btn">Subscribe</button>
-      </form>
-  </div>
-</section>
+
   
   <footer class="footer">
     <div class="footer-container">

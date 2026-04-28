@@ -118,44 +118,50 @@
 
         .social-links {
             display: flex;
-            gap: 30px;
+            gap: 40px;
             margin-bottom: 20px;
+            align-items: flex-start;
         }
 
         .social-link {
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 6px;
             color: white;
             text-decoration: none;
+            font-size: 13px;
         }
 
         .social-link img {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
-            margin-bottom: 8px;
         }
 
         .social-link span {
             font-size: 12px;
             color: #ccc;
+            text-align: center;
+            margin: 0;
         }
 
         .footer-logo {
-            margin-bottom: 20px;
+            margin-bottom: -10px;
         }
 
         .footer-logo img {
-            height: 60px;
+            height: 80px;
+            width: 100px
         }
 
         .footer-text {
             font-size: 14px;
             color: #ccc;
         }
-        .account-bookings {
-  max-width: 1200px;
+       
+ .account-bookings {
+   max-width: 1200px;
   margin: 40px auto;
   padding: 20px;
 }
@@ -164,7 +170,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
+  margin-top: -40px;
 }
 
 .booking-search {
@@ -280,6 +287,89 @@
   background: #b1271b;
 }
 
+/* ── Cancel Modal ── */
+#cancel-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+
+.cancel-modal-box {
+  background: white;
+  padding: 35px 30px;
+  border-radius: 12px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.cancel-modal-box h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: #222;
+}
+
+.cancel-modal-box p {
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cancel-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+#close-modal {
+  padding: 10px 24px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+  font-size: 14px;
+  color: #333;
+}
+
+#close-modal:hover {
+  background: #f5f5f5;
+}
+
+#confirm-cancel {
+  padding: 10px 24px;
+  background: #d93025;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#confirm-cancel:hover {
+  background: #b1271b;
+}
+
+/* Cancel button inside table */
+.cancel-btn {
+  padding: 6px 14px;
+  background: #d93025;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.cancel-btn:hover {
+  background: #b1271b;
+}
 
     </style>
 </head>
@@ -313,7 +403,6 @@
     <table>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Status</th>
           <th>Check-in / Check-out</th>
           <th>Guests</th>
@@ -321,6 +410,7 @@
           <th>Price</th>
           <th>Accommodation</th>
           <th>Date</th>
+          <th></th>
         </tr>
       </thead>
       <tbody id="bookings-container">
@@ -329,24 +419,40 @@
     </table>
   </div>
 </section>
+
+      <!-- ── Cancel Confirmation Modal ── -->
+      <div id="cancel-modal">
+        <div class="cancel-modal-box">
+          <h3>Cancel Booking?</h3>
+          <p>Are you sure you want to cancel this booking?<br>This cannot be undone.</p>
+          <div class="cancel-modal-actions">
+            <button id="close-modal">No</button>
+            <button id="confirm-cancel">Yes</button>
+          </div>
+        </div>
+      </div>
+
     </main>
 
     <footer class="footer">
         <div class="footer-container">
           <div class="social-links">
             <a href="https://www.facebook.com/" class="social-link facebook">
-              <img src="footer\facebook.png" width="20px" alt="Facebook Logo"> Facebook<br><span>Join us on Facebook</span>
+              <img src="footer/facebook.png" alt="Facebook Logo">
+              <span>Facebook</span>
             </a>
             <a href="https://twitter.com/i/flow/signup?lang=en" class="social-link twitter">
-              <img src="footer\x.png" alt="Twitter Logo"> Twitter<br><span>Join us on   Twitter</span>
+              <img src="footer/x.png" alt="Twitter Logo">
+              <span>Twitter</span>
             </a>
             <a href="https://www.youtube.com/hashtag/youtubelink" class="social-link youtube">
-              <img src="footer\png-transparent-round-youtube-logo.png" alt="YouTube Logo"> Youtube<br><span>Join us on Youtube</span>
+              <img src="footer/png-transparent-round-youtube-logo.png" alt="YouTube Logo">
+              <span>YouTube</span>
             </a>
             <a href="https://www.instagram.com/accounts/login/?hl=en" class="social-link instagram">
-              <img src="footer\instagram.jpg" alt="Instagram Logo"> Instagram<br><span>Join us on Instagram</span>
+              <img src="footer/instagram.jpg" alt="Instagram Logo">
+              <span>Instagram</span>
             </a>
-            <br>
           </div>
           <div class="footer-logo">
             <img src="photo_logo\logo_IPT.png" alt="Logo" >
@@ -371,7 +477,6 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(res => res.json())
   .then(data => {
     if (!data.logged_in) {
-      // Session gone — clear localStorage and redirect
       localStorage.removeItem("currentUser");
       localStorage.removeItem("userEmail");
       localStorage.setItem("isLoggedIn", "false");
@@ -379,12 +484,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Session is alive — sync localStorage
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("userEmail", data.email);
     localStorage.setItem("currentUser", JSON.stringify(data));
 
-    // Show email in dropdown
     document.getElementById("user-email").textContent = data.email;
 
     const profileIcon = document.getElementById("profile-icon");
@@ -401,7 +504,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Sign out — destroy server session first, then clear localStorage
     document.getElementById("logout-btn").addEventListener("click", () => {
       fetch("api/auth.php", {
         method: "POST",
@@ -418,7 +520,6 @@ document.addEventListener("DOMContentLoaded", () => {
     displayUserBookings();
   })
   .catch(() => {
-    // XAMPP not reachable — fallback to localStorage
     const isLoggedIn  = localStorage.getItem("isLoggedIn");
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     if (isLoggedIn !== "true" || !currentUser) {

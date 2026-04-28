@@ -25,7 +25,30 @@
 
 
   <div id="step3" class="form">
-    <div class="form-section">
+    <div class="form-section" style="position:relative;">
+
+      <!-- X button → back to homepage (outside the confirmation paper) -->
+      <a href="index.html" title="Back to Home" style="
+        position: absolute;
+        top: 35px;
+        right: 150px;
+        width: 34px;
+        height: 34px;
+        background: #e53935;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+        transition: background 0.2s, transform 0.2s;
+        z-index: 10;
+      " onmouseover="this.style.background='#b71c1c';this.style.transform='scale(1.1)'"
+         onmouseout="this.style.background='#e53935';this.style.transform='scale(1)'">&#x2715;</a>
+
       <div class="confirmation">
         <div class="header">
           <img src="hotel-images/logo.png" alt="">
